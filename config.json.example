@@ -5,5 +5,5 @@
     "password": "admin",
     "loglevel": "INFO",
     "logpath": "./qc.log",
-    "age": 2630000
+    "age": 2419200
 }

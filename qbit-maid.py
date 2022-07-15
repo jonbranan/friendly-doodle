@@ -46,7 +46,7 @@ class Qbt:
         buildtorlist(self)
         torprocessor(self)
         printprocessor(self)
-        #tordelete(self)
+        tordelete(self)
 
 if  __name__== "__main__":
     Qbt()
