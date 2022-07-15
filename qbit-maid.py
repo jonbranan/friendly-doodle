@@ -43,7 +43,10 @@ class Qbt:
             self.tl.exception(e)
         self.torrentlist = {}
         self.torrentlist = self.qbt_client.torrents_info()
+        listqbitapiinfo(self)
+        listfirsttor(self)
         buildtorlist(self)
+        torrentcount(self)
         torprocessor(self)
         printprocessor(self)
         tordelete(self)
