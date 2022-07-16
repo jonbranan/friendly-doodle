@@ -6,6 +6,9 @@ def buildtorlist(self):
         while self.torrentlist:
             torrent = self.torrentlist.pop()
             self.tl.debug(f'{torrent["name"]} {torrent["infohash_v1"]}')
+            if torrent['tracker'] == '':
+                self.tl.warning(f"Torrent doesn't have a tracker{torrent['name']} [{torrent['tracker']}]hash: {torrent['hash']}")
+                break
             if self.tracker_whitelist['iptorrents-empirehost'] in torrent['tracker']:
                 self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.protected_count += 1
