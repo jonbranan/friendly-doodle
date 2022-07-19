@@ -44,8 +44,8 @@ def listfirsttor(self, index=0):
 
 def listqbitapiinfo(self):
         """Writes torrent info to log file"""
-        self.tl.info(f'qBittorrent: {self.qbt_client.app.version}')
-        self.tl.info(f'qBittorrent Web API: {self.qbt_client.app.web_api_version}')
+        self.tl.debug(f'qBittorrent: {self.qbt_client.app.version}')
+        self.tl.debug(f'qBittorrent Web API: {self.qbt_client.app.web_api_version}')
 
 def torrentcount(self):
     self.tl.debug(f'torrents that are protected {self.protected_count}')
