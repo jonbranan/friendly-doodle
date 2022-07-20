@@ -11,6 +11,8 @@ def buildtorlist(self):
             torrent = self.torrentlist.pop()
             if self.use_log:
                 self.tl.debug(f'{torrent["name"]} {torrent["infohash_v1"]}')
+            if torrent['category'] == 'tech':
+                break
             if torrent['tracker'] == '':
                 if self.use_log:
                     self.tl.warning(f"Torrent doesn't have a tracker{torrent['name']} [{torrent['tracker']}]hash: {torrent['hash']}")
