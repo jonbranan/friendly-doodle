@@ -2,7 +2,7 @@
 
 Warning: This application removes torrents that aren't downloading and that aren't from iptorrents. Age in the config.json only controls the age for torrents from iptorrents.
 
-The objective is to filter torrents based on the following criteria:
+The objective is to remove torrents based on the following criteria:
 - tracker domain name
 - age
 - ratio
