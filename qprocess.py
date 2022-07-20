@@ -1,4 +1,3 @@
-#The fourth file shall be logic to process torrents.
 def torprocessor(self):
     """Main logic to sort through both self.tracker_nonprotected_list and self.tracker_protected_list
     If torrent meets criteria for deletion, its infohash_v1 will be appended to self.torrent_hash_delete_list

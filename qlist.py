@@ -1,4 +1,3 @@
-#The second file shall contain functions to build out a list of torrents.
 def buildtorlist(self):
         """Builds multiple lists of torrents to be sorted. Also adds tags to the torents.
         There are more effecient ways of doing things but I did this rather quickly.

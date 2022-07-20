@@ -1,5 +1,3 @@
-#The third file shall contain logging and email communication.
-
 def torlog(self):
     """Setting up the log file, if self.use_log is set to true and self.loglevel is DEBUG OR INFO"""
     if self.use_log:
