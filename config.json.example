@@ -5,5 +5,8 @@
     "password": "admin",
     "loglevel": "INFO",
     "logpath": "./qc.log",
-    "age": 2419200
+    "age": 2419200,
+    "use_pushover": true,
+    "po_key": "",
+    "po_token": ""
 }

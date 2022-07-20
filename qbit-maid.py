@@ -1,5 +1,6 @@
 #The first file shall contain an client to the qbit api and the processing of the torrents.
 import qbittorrentapi
+import pushover
 from json import load
 from qlist import *
 from qlogging import *
@@ -22,10 +23,15 @@ class Qbt:
         )
         # Create the logging object
         self.tl = logging
+        self.po = pushover
+        self.use_pushover= self.config["use_pushover"]
+        self.po_key=self.config["po_key"]
+        self.po_token=self.config["po_token"]
         # Variables torlog uses from config.json
         self.logpath=self.config["logpath"]
         self.loglevel=self.config["loglevel"]
         torlog(self)
+        tornotify(self)
         self.t = time
         f = open('./tracker-whitelist.json')
         self.tracker_whitelist = load(f)
