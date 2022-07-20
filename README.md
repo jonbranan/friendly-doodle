@@ -20,10 +20,10 @@ graph TD;
 
 | File | Purpose |
 | --- | --- |
-| qbit-maid.py - Client to the qbit api and calls functions from the other files |
-| qlist.py - Builds out torrent lists |
-| qlogging.py - Logging and push notification communication |
-| qprocess.py - Submits qualifying torrents for deletion |
+| qbit-maid.py | Client to the qbit api and calls functions from the other files |
+| qlist.py | Builds out torrent lists |
+| qlogging.py | Logging and push notification communication |
+| qprocess.py | Submits qualifying torrents for deletion |
 
 You will need a config.json in the root directory.
 
