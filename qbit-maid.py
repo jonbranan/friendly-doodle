@@ -41,7 +41,8 @@ class Qbt:
         self.tracker_protected_tag = 'ipt'
         self.tracker_non_protected_tag = 'public'
         self.torrent_hash_delete_list = []
-        self.tl.debug(self.tracker_whitelist)
+        if self.use_log:
+            self.tl.debug(self.tracker_whitelist)
         try:
             self.tl.info('Connecting to host.')
             self.qbt_client.auth_log_in()
@@ -51,12 +52,15 @@ class Qbt:
             self.poc.send_message(e, title="qbit-maid API ERROR")
         self.torrentlist = {}
         self.torrentlist = self.qbt_client.torrents_info()
-        listqbitapiinfo(self)
-        #listfirsttor(self)
+        if self.use_log:
+            listqbitapiinfo(self)
+            listfirsttor(self)
         buildtorlist(self)
-        torrentcount(self)
+        if self.use_log:
+            torrentcount(self)
         torprocessor(self)
-        printprocessor(self)
+        if self.use_log:
+            printprocessor(self)
         if self.use_pushover:
             tornotifysummary(self)
         tordelete(self)

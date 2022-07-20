@@ -5,27 +5,33 @@ def buildtorlist(self):
         self.nonprotected_count = 0
         while self.torrentlist:
             torrent = self.torrentlist.pop()
-            self.tl.debug(f'{torrent["name"]} {torrent["infohash_v1"]}')
+            if self.use_log:
+                self.tl.debug(f'{torrent["name"]} {torrent["infohash_v1"]}')
             if torrent['tracker'] == '':
-                self.tl.warning(f"Torrent doesn't have a tracker{torrent['name']} [{torrent['tracker']}]hash: {torrent['hash']}")
+                if self.use_log:
+                    self.tl.warning(f"Torrent doesn't have a tracker{torrent['name']} [{torrent['tracker']}]hash: {torrent['hash']}")
                 break
             if self.tracker_whitelist['iptorrents-empirehost'] in torrent['tracker']:
-                self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
+                if self.use_log:
+                    self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.protected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                 self.tracker_protected_list.append(torrent)
             elif self.tracker_whitelist["iptorrents-stackoverflow"] in torrent['tracker']:
-                self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
+                if self.use_log:
+                    self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.protected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                 self.tracker_protected_list.append(torrent)
             elif self.tracker_whitelist["iptorrents-bgp"] in torrent['tracker']:
-                self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
+                if self.use_log:
+                    self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.protected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                 self.tracker_protected_list.append(torrent)
             else:
-                self.tl.debug(f'Non-protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
+                if self.use_log:
+                    self.tl.debug(f'Non-protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.nonprotected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
                 self.tracker_nonprotected_list.append(torrent)
