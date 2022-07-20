@@ -8,17 +8,22 @@ The objective is to filter torrents based on the following criteria:
 - ratio
 - state
 
-Client to the qbit api and the processing of the torrents.
-qbit-clean.py
+```mermaid
+graph TD;
+    qbit-maid.py-->qlogging.py;
+    qbit-maid.py-->qlist.py;
+    qbit-maid.py-->qprocess.py;
+    qlogging.py-->qbit-maid.py;
+    qlist.py-->qbit-maid.py;
+    qprocess.py-->qbit-maid.py;
+```
 
-Functions to build out a list of torrents.
-qlist.py
-
-Logging and push notification communication.
-qlogging.py
-
-Logic to process torrents.
-qprocess.py
+| File | Purpose |
+| --- | --- |
+| qbit-maid.py - Client to the qbit api and calls functions from the other files |
+| qlist.py - Builds out torrent lists |
+| qlogging.py - Logging and push notification communication |
+| qprocess.py - Submits qualifying torrents for deletion |
 
 You will need a config.json in the root directory.
 
