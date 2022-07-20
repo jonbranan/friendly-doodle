@@ -24,12 +24,13 @@ class Qbt:
         # Create the logging object
         self.tl = logging
         self.po = pushover
-        self.use_pushover= self.config["use_pushover"]
-        self.po_key=self.config["po_key"]
-        self.po_token=self.config["po_token"]
+        self.use_pushover = self.config["use_pushover"]
+        self.use_log = self.config["use_log"]
+        self.po_key = self.config["po_key"]
+        self.po_token = self.config["po_token"]
         # Variables torlog uses from config.json
-        self.logpath=self.config["logpath"]
-        self.loglevel=self.config["loglevel"]
+        self.logpath = self.config["logpath"]
+        self.loglevel = self.config["loglevel"]
         torlog(self)
         tornotify(self)
         self.t = time
@@ -55,6 +56,8 @@ class Qbt:
         torrentcount(self)
         torprocessor(self)
         printprocessor(self)
+        if self.use_pushover:
+            tornotifysummary(self)
         tordelete(self)
 
 if  __name__== "__main__":

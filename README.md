@@ -8,16 +8,16 @@ The objective is to filter torrents based on the following criteria:
 - ratio
 - state
 
-The first file shall contain an client to the qbit api and the processing of the torrents.
+Client to the qbit api and the processing of the torrents.
 qbit-clean.py
 
-The second file shall contain functions to build out a list of torrents.
+Functions to build out a list of torrents.
 qlist.py
 
-The third file shall contain logging and email communication.
+Logging and push notification communication.
 qlogging.py
 
-The fourth file shall be logic to process torrents.
+Logic to process torrents.
 qprocess.py
 
 You will need a config.json in the root directory.
@@ -30,9 +30,12 @@ It should look something like this:
     "password": "admin",
     "loglevel": "INFO",
     "logpath": "./qc.log",
-    "age": 2419200
+    "age": 2419200,
+    "use_pushover": true,
+    "po_key": "",
+    "po_token": ""
 }
 
-loglevel is what log messages are written to the log file. It only accepts INFO or DEBUG.
+loglevel - is what log messages are written to the log file. It only accepts INFO or DEBUG.
 
-Age is a number in seconds for how long we keep torrents from IPTORRENTS.
+age - is a number in seconds for how long we keep torrents from IPTORRENTS.
