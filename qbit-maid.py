@@ -46,8 +46,9 @@ class Qbt:
             self.tl.info('Connecting to host.')
             self.qbt_client.auth_log_in()
             self.tl.info('Connected.')
-        except qbittorrentapi.LoginFailed as e:
+        except qbittorrentapi.APIError as e:
             self.tl.exception(e)
+            self.poc.send_message(e, title="qbit-maid API ERROR")
         self.torrentlist = {}
         self.torrentlist = self.qbt_client.torrents_info()
         listqbitapiinfo(self)
