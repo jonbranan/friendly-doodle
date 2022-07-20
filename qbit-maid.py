@@ -21,28 +21,32 @@ class Qbt:
             username=self.config["username"],
             password=self.config["password"],
         )
-        # Create the logging object
+        # Create the logging and pushover objects
         self.tl = logging
         self.po = pushover
+        # Variables torlog uses from config.json
         self.use_pushover = self.config["use_pushover"]
         self.use_log = self.config["use_log"]
         self.po_key = self.config["po_key"]
         self.po_token = self.config["po_token"]
-        # Variables torlog uses from config.json
         self.logpath = self.config["logpath"]
         self.loglevel = self.config["loglevel"]
+        # Calling log and notify functions
         torlog(self)
         tornotify(self)
         self.t = time
+        # Pulling domain names to treat carefully
         f = open('./tracker-whitelist.json')
         self.tracker_whitelist = load(f)
         self.tracker_protected_list = []
         self.tracker_nonprotected_list = []
+        # Setting values of the tags
         self.tracker_protected_tag = 'ipt'
         self.tracker_non_protected_tag = 'public'
         self.torrent_hash_delete_list = []
         if self.use_log:
             self.tl.debug(self.tracker_whitelist)
+        #logging in
         try:
             self.tl.info('Connecting to host.')
             self.qbt_client.auth_log_in()
@@ -51,7 +55,9 @@ class Qbt:
             self.tl.exception(e)
             self.poc.send_message(e, title="qbit-maid API ERROR")
         self.torrentlist = {}
+        # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
+        #Main process block
         if self.use_log:
             listqbitapiinfo(self)
             listfirsttor(self)
@@ -65,5 +71,6 @@ class Qbt:
             tornotifysummary(self)
         tordelete(self)
 
+# Run
 if  __name__== "__main__":
     Qbt()

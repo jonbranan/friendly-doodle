@@ -1,5 +1,8 @@
 #The fourth file shall be logic to process torrents.
 def torprocessor(self):
+    """Main logic to sort through both self.tracker_nonprotected_list and self.tracker_protected_list
+    If torrent meets criteria for deletion, its infohash_v1 will be appended to self.torrent_hash_delete_list
+    """
     for canidate in self.tracker_nonprotected_list:
         if 'ipt' in canidate['tags']:
             if self.use_log:
@@ -37,12 +40,15 @@ def torprocessor(self):
             pass
 
 def printprocessor(self):
+    """Print summary of torrents"""
     self.tl.info(f'Protected torrents: {len(self.tracker_protected_list)}')
     self.tl.info(f'Non-protected torrents: {len(self.tracker_nonprotected_list)}')
     self.tl.info(f'Total torrents set for deletion: {len(self.torrent_hash_delete_list)}')
 
 def tordelete(self):
+    """Remove torrents, will also delete files, this keeps the filesystem clean. 
+    Only pass self.torrent_hash_delete_list if you would like to keep the files."""
     if self.use_log:
         self.tl.debug('Hash list submitted for deletion:')
-    self.tl.debug(self.torrent_hash_delete_list)
+        self.tl.debug(self.torrent_hash_delete_list)
     self.qbt_client.torrents_delete(True, self.torrent_hash_delete_list)
