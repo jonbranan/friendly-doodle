@@ -23,6 +23,7 @@ qprocess.py
 You will need a config.json in the root directory.
 
 It should look something like this:
+```
 {
     "host": "192.168.1.1",
     "port": 8080,
@@ -36,7 +37,7 @@ It should look something like this:
     "po_key": "",
     "po_token": ""
 }
-
+```
 Config.json
 - host - string, ip or hostname of qbittorrent server
 - port - port of admin gui(used for api aswell)
