@@ -5,6 +5,8 @@
     "password": "admin",
     "loglevel": "INFO",
     "logpath": "./qc.log",
+    "protected_tag": "ipt",
+    "non_protected_tag": "public",
     "age": 2419200,
     "use_pushover": true,
     "use_log": true,
