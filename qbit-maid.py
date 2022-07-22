@@ -31,6 +31,8 @@ class Qbt:
         self.po_token = self.config["po_token"]
         self.logpath = self.config["logpath"]
         self.loglevel = self.config["loglevel"]
+        self.tracker_protected_tag = self.config["protected_tag"]
+        self.tracker_non_protected_tag = self.config["non_protected_tag"]
         # Calling log and notify functions
         torlog(self)
         tornotify(self)
@@ -40,9 +42,6 @@ class Qbt:
         self.tracker_whitelist = load(f)
         self.tracker_protected_list = []
         self.tracker_nonprotected_list = []
-        # Setting values of the tags
-        self.tracker_protected_tag = 'ipt'
-        self.tracker_non_protected_tag = 'public'
         self.torrent_hash_delete_list = []
         if self.use_log:
             self.tl.debug(self.tracker_whitelist)
