@@ -61,6 +61,7 @@ class Qbt:
             listqbitapiinfo(self)
             listfirsttor(self)
         buildtorlist(self)
+        #tordeletetags(self)
         if self.use_log:
             torrentcount(self)
         torprocessor(self)
@@ -68,8 +69,8 @@ class Qbt:
             printprocessor(self)
         if self.use_pushover:
             tornotifysummary(self)
-        tordelete(self)
-
+        #tordelete(self)
+        
 # Run
 if  __name__== "__main__":
     Qbt()
