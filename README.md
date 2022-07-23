@@ -44,6 +44,15 @@ Config.json
     "po_token": ""
 }
 ```
+
+You will need a tracker-whitelist.json in the root directory
+```
+{
+    "example": "general"
+}
+```
+
+
 | Key | Value |
 | --- | --- |
 | host | string, ip or hostname of qbittorrent server |
@@ -51,6 +60,8 @@ Config.json
 | username | admin account for qbittorrent |
 | password | password for admin account |
 | loglevel | is what log messages are written to the log file. INFO or DEBUG are valid entries(case sensitive) |
+| protected_tag | used to mark torrents to handle with care |
+| non_protected_tag | we don't care about these torrents |
 | logpath | will write a log in root directory if left as is other wise specify other path using forward slashes |
 | age | number, seconds for how long we keep torrents from IPTORRENTS |
 | use_pushover | true or false to enable or disable pushover notification summary |

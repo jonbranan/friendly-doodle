@@ -10,7 +10,8 @@ def buildtorlist(self):
             torrent = self.torrentlist.pop()
             if self.use_log:
                 self.tl.debug(f'["{torrent["name"][0:20]}..."] {torrent["infohash_v1"]}')
-            if torrent['category'] == 'tech':
+            if torrent['tags'] in self.cat_whitelist.values():
+                self.tl.info(f'Ignored torrent:["{torrent["name"][0:20]}..."]')
                 continue
             if torrent['tracker'] == '':
                 if self.use_log:
@@ -57,3 +58,6 @@ def torrentcount(self):
 def tordeletetags(self):
     tag_list = ['ipt','public','iptorrents']
     self.qbt_client.torrents_delete_tags(tag_list)
+
+def torlisttags(self):
+    pass
