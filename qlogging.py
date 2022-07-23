@@ -19,12 +19,53 @@ def tornotifytest(self):
 def tornotifysummary(self):
     """Main notification method when the app is used in an automated fashion"""
     self.poc.send_message(f"   Total: {self.total_torrents}\n\
+    Premature: {self.preme_tor_counter}\n\
     Protected: {self.c[self.tracker_protected_tag]}\n\
     Non-protected: {self.c[self.tracker_non_protected_tag]}\n\
     Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
     Orphaned: {self.up_tor_counter}", title="--- qbit-maid summary ---")
 
+def printprocessor(self):
+    """Print summary of torrents"""
+    self.c = self.ct()
+    for item in self.tracker_list:
+        self.c[item["tags"]] += 1
+    self.tl.info(f'Total: {self.total_torrents}')
+    self.tl.info(f'Premature: {self.preme_tor_counter}')
+    self.tl.info(f'Protected: {self.c[self.tracker_protected_tag]}')
+    self.tl.info(f'Non-protected: {self.c[self.tracker_non_protected_tag]}')
+    self.tl.info(f'Orphaned: {self.up_tor_counter}')
+    self.tl.info(f'Marked for deletion: {len(self.torrent_hash_delete_list)}')
+
 def getunixtimestamp(self):
     """Used for debuging and development related to unixtimestamps, not used in main script but useful"""
     self.uts = self.t.time()
     self.tl.info(self.uts)
+
+def writetor(self, filepath='./torrentinfo.txt'):
+    """Write all torrent data to a file.
+    Useful for development of new features.
+    """
+    with open(filepath, 'w') as fp:
+        fp.write(str(self.torrentlist))
+
+def listfirsttor(self, index=0):
+    """Only lists the first torrent"""
+    self.tl.debug('First torrent in the list:')
+    torrent = self.torrentlist[index]
+    for k,v in torrent.items():
+         self.tl.debug(f'{k}:  {v}')
+    self.tl.debug('\n')
+
+def listqbitapiinfo(self):
+        """Writes torrent info to log file"""
+        self.tl.debug(f'qBittorrent: {self.qbt_client.app.version}')
+        self.tl.debug(f'qBittorrent Web API: {self.qbt_client.app.web_api_version}')
+
+def torrentcount(self):
+    """write torrent counts to log file"""
+    self.tl.debug(f'torrents that are protected {self.tracker_list.count("ipt")}')
+    self.tl.debug(f'torrents that aren\'t protected {self.tracker_list.count("public")}')
+
+def torlisttags(self):
+    pass
