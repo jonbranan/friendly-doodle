@@ -14,10 +14,12 @@ def buildtorlist(self):
                 continue
             if torrent['category'] in self.cat_whitelist.values():
                 self.tl.info(f'Ignored torrent:["{torrent["name"][0:20]}..."]')
+                self.ignored_counter += 1
                 continue
             if torrent['tracker'] == '':
                 if self.use_log:
                     self.tl.warning(f'Torrent doesn\'t have a tracker ["{torrent["name"][0:20]}..."] [{torrent["tracker"]}]hash: {torrent["hash"]}')
+                self.ignored_counter += 1
                 continue
             if torrent['tracker'].split('/')[2] in self.tracker_whitelist.values():
                 if self.use_log:

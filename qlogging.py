@@ -20,10 +20,11 @@ def tornotifysummary(self):
     """Main notification method when the app is used in an automated fashion"""
     self.poc.send_message(f"   Total: {self.total_torrents}\n\
     Premature: {self.preme_tor_counter}\n\
+    Ignored: {self.ignored_counter}\n\
     Protected: {self.c[self.tracker_protected_tag]}\n\
     Non-protected: {self.c[self.tracker_non_protected_tag]}\n\
-    Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
-    Orphaned: {self.up_tor_counter}", title="--- qbit-maid summary ---")
+    Orphaned: {self.up_tor_counter}\n\
+    Marked for deletion: {len(self.torrent_hash_delete_list)}", title="--- qbit-maid summary ---")
 
 def printprocessor(self):
     """Print summary of torrents"""
@@ -32,6 +33,7 @@ def printprocessor(self):
         self.c[item["tags"]] += 1
     self.tl.info(f'Total: {self.total_torrents}')
     self.tl.info(f'Premature: {self.preme_tor_counter}')
+    self.tl.info(f'Ignored: {self.ignored_counter}')
     self.tl.info(f'Protected: {self.c[self.tracker_protected_tag]}')
     self.tl.info(f'Non-protected: {self.c[self.tracker_non_protected_tag]}')
     self.tl.info(f'Orphaned: {self.up_tor_counter}')

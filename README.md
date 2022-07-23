@@ -37,11 +37,15 @@ Config.json
     "password": "admin",
     "loglevel": "INFO",
     "logpath": "./qc.log",
+    "protected_tag": "ipt",
+    "non_protected_tag": "public",
     "age": 2419200,
-    "use_pushover": true,
+    "minimum_age": 432000,
+    "use_pushover": false,
     "use_log": true,
     "po_key": "",
-    "po_token": ""
+    "po_token": "",
+    "delete_torrents": false
 }
 ```
 

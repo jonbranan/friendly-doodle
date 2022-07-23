@@ -49,6 +49,7 @@ class Qbt:
         self.tracker_list = []
         self.up_tor_counter = 0
         self.preme_tor_counter = 0
+        self.ignored_counter = 0
         self.torrent_hash_delete_list = []
         if self.use_log:
             self.tl.debug(self.tracker_whitelist)
