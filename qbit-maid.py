@@ -14,7 +14,7 @@ class Qbt:
         # Open the config. Needs a json file with the data in config.json.example
         c = open('./config.json')
         self.config = load(c)
-        w = open('./config.json')
+        w = open('./category-whitelist.json')
         self.cat_whitelist = load(w)
         # Create the api object
         self.qbt_client = qbittorrentapi.Client(

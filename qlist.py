@@ -4,13 +4,11 @@ def buildtorlist(self):
         V2 will certainly be more performant. The reason two lists were used was so that torrents 
         that are in public trackers woudln't be around as long as torrents from a private tracker.
         """
-        self.protected_count = 0
-        self.nonprotected_count = 0
         while self.torrentlist:
             torrent = self.torrentlist.pop()
             if self.use_log:
                 self.tl.debug(f'["{torrent["name"][0:20]}..."] {torrent["infohash_v1"]}')
-            if torrent['tags'] in self.cat_whitelist.values():
+            if torrent['category'] in self.cat_whitelist.values():
                 self.tl.info(f'Ignored torrent:["{torrent["name"][0:20]}..."]')
                 continue
             if torrent['tracker'] == '':
@@ -20,13 +18,11 @@ def buildtorlist(self):
             if torrent['tracker'].split('/')[2] in self.tracker_whitelist.values():
                 if self.use_log:
                     self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
-                self.protected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                 self.tracker_protected_list.append(torrent)
-            elif torrent['tracker'].split('/')[2] not in self.tracker_whitelist.values():
+            if torrent['tracker'].split('/')[2] not in self.tracker_whitelist.values():
                 if self.use_log:
                     self.tl.debug(f'Non-protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
-                self.nonprotected_count += 1
                 self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
                 self.tracker_nonprotected_list.append(torrent)
 
