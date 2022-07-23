@@ -45,10 +45,11 @@ Config.json
 }
 ```
 
-You will need a tracker-whitelist.json in the root directory
+You will need a category-whitelist.json in the root directory. This will ignore any of the categories found in the values of the entries.
 ```
 {
-    "example": "general"
+    "example": "general",
+    "example2": "sonarr"
 }
 ```
 
