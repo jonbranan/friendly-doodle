@@ -18,9 +18,11 @@ def tornotifytest(self):
 
 def tornotifysummary(self):
     """Main notification method when the app is used in an automated fashion"""
-    self.poc.send_message(f'    Protected torrents: {len(self.tracker_protected_list)}\n\
-    Non-protected torrents: {len(self.tracker_nonprotected_list)}\n\
-    Total torrents set for deletion: {len(self.torrent_hash_delete_list)}', title="qbit-maid summary")
+    self.poc.send_message(f"   Total: {self.total_torrents}\n\
+    Protected: {self.c[self.tracker_protected_tag]}\n\
+    Non-protected: {self.c[self.tracker_non_protected_tag]}\n\
+    Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
+    Orphaned: {self.up_tor_counter}", title="--- qbit-maid summary ---")
 
 def getunixtimestamp(self):
     """Used for debuging and development related to unixtimestamps, not used in main script but useful"""

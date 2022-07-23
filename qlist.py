@@ -4,6 +4,7 @@ def buildtorlist(self):
         V2 will certainly be more performant. The reason two lists were used was so that torrents 
         that are in public trackers woudln't be around as long as torrents from a private tracker.
         """
+        self.total_torrents = len(self.torrentlist) 
         while self.torrentlist:
             torrent = self.torrentlist.pop()
             if self.use_log:
@@ -18,13 +19,15 @@ def buildtorlist(self):
             if torrent['tracker'].split('/')[2] in self.tracker_whitelist.values():
                 if self.use_log:
                     self.tl.debug(f'Protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
-                self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
-                self.tracker_protected_list.append(torrent)
+                if torrent['tags'] == '':
+                    self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
+                self.tracker_list.append(torrent)
             if torrent['tracker'].split('/')[2] not in self.tracker_whitelist.values():
                 if self.use_log:
                     self.tl.debug(f'Non-protected torrent: {torrent["tracker"]}hash: {torrent["hash"]}')
-                self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
-                self.tracker_nonprotected_list.append(torrent)
+                if torrent['tags'] == '':
+                    self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
+                self.tracker_list.append(torrent)
 
 def writetor(self, filepath='./torrentinfo.txt'):
     """Write all torrent data to a file.
@@ -48,11 +51,11 @@ def listqbitapiinfo(self):
 
 def torrentcount(self):
     """write torrent counts to log file"""
-    self.tl.debug(f'torrents that are protected {self.protected_count}')
-    self.tl.debug(f"torrents that aren't protected {self.nonprotected_count}")
+    self.tl.debug(f'torrents that are protected {self.tracker_list.count("ipt")}')
+    self.tl.debug(f'torrents that aren\'t protected {self.tracker_list.count("public")}')
 
 def tordeletetags(self):
-    tag_list = ['ipt','public','iptorrents']
+    tag_list = [self.tracker_protected_tag, self.tracker_non_protected_tag]
     self.qbt_client.torrents_delete_tags(tag_list)
 
 def torlisttags(self):
