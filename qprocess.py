@@ -6,11 +6,11 @@ def torprocessor(self):
         if 'ipt' in canidate['tags']:
             if self.use_log:
                 self.tl.warning(f'["{canidate["name"][0:20]}..."] was in non-protected list.')
-            break
+            continue
         if canidate['state'] == 'downloading':
             if self.use_log:
                 self.tl.info(f'["{canidate["name"][0:20]}..."] is still downloading and will be skipped.')
-            break
+            continue
         else:
             self.torrent_hash_delete_list.append(canidate['infohash_v1'])
             if self.use_log:   
@@ -19,7 +19,7 @@ def torprocessor(self):
         if canidate['state'] == 'downloading':
             if self.use_log:
                 self.tl.warning(f'["{canidate["name"][0:20]}..."] is still downloading and will be skipped.')
-            break
+            continue
         if canidate['ratio'] < float(1.05):
             if self.use_log:
                 self.tl.debug(f'["{canidate["name"][0:20]}..."] is below a 1.05 ratio({canidate["ratio"]})')
