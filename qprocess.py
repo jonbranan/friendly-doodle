@@ -10,9 +10,9 @@ def torprocessor(self):
         elif canidate['ratio'] < float(1.05) and self.tracker_protected_tag in canidate["tags"]:
             if self.use_log:
                 self.tl.debug(f'["{canidate["name"][0:20]}..."] is below a 1.05 ratio({canidate["ratio"]})')
-            if canidate['added_on'] + self.config["age"] <= self.t.time():
+            if canidate['added_on'] + self.age <= self.t.time():
                 if self.use_log:
-                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {self.t.time() - self.config["age"] - canidate["added_on"]}')
+                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {self.t.time() - self.age - canidate["added_on"]}')
                 self.torrent_hash_delete_list.append(canidate['infohash_v1'])
                 if self.use_log:
                     self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion from the protected list.') 
@@ -31,16 +31,9 @@ def torprocessor(self):
             self.up_tor_counter += 1
             continue
 
-def printprocessor(self):
-    """Print summary of torrents"""
-    self.c = self.ct()
-    for item in self.tracker_list:
-        self.c[item["tags"]] += 1
-    self.tl.info(f'Total: {self.total_torrents}')
-    self.tl.info(f'Protected: {self.c[self.tracker_protected_tag]}')
-    self.tl.info(f'Non-protected: {self.c[self.tracker_non_protected_tag]}')
-    self.tl.info(f'Orphaned: {self.up_tor_counter}')
-    self.tl.info(f'Marked for deletion: {len(self.torrent_hash_delete_list)}')
+def tordeletetags(self):
+    tag_list = [self.tracker_protected_tag, self.tracker_non_protected_tag]
+    self.qbt_client.torrents_delete_tags(tag_list)
 
 def tordelete(self):
     """Remove torrents, will also delete files, this keeps the filesystem clean. 

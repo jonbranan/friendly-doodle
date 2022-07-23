@@ -37,6 +37,8 @@ class Qbt:
         self.loglevel = self.config["loglevel"]
         self.tracker_protected_tag = self.config["protected_tag"]
         self.tracker_non_protected_tag = self.config["non_protected_tag"]
+        self.minimum_age = self.config["minimum_age"]
+        self.age = self.config["age"]
         # Calling log and notify functions
         torlog(self)
         tornotify(self)
@@ -46,6 +48,7 @@ class Qbt:
         self.tracker_whitelist = load(f)
         self.tracker_list = []
         self.up_tor_counter = 0
+        self.preme_tor_counter = 0
         self.torrent_hash_delete_list = []
         if self.use_log:
             self.tl.debug(self.tracker_whitelist)

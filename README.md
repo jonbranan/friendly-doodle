@@ -65,7 +65,9 @@ You will need a category-whitelist.json in the root directory. This will ignore 
 | non_protected_tag | we don't care about these torrents |
 | logpath | will write a log in root directory if left as is other wise specify other path using forward slashes |
 | age | number, seconds for how long we keep torrents from IPTORRENTS |
+| minimum_age | age in seconds torrents should reached before they are removed |
 | use_pushover | true or false to enable or disable pushover notification summary |
 | use_log | true or false to enable or disable writing to alog file |
 | po_key | pushover key |
 | po_token | pushover api token |
+| delete_torrents | true or false to enable or disable deletion. Useful for dry-runs |
