@@ -7,6 +7,7 @@ from qlogging import *
 from qprocess import *
 import time
 import logging
+from collections import Counter
 
 class Qbt:
     def __init__(self):
@@ -26,6 +27,7 @@ class Qbt:
         # Create the logging and pushover objects
         self.tl = logging
         self.po = pushover
+        self.ct = Counter
         # Variables torlog uses from config.json
         self.use_pushover = self.config["use_pushover"]
         self.use_log = self.config["use_log"]
@@ -42,8 +44,8 @@ class Qbt:
         # Pulling domain names to treat carefully
         f = open('./tracker-whitelist.json')
         self.tracker_whitelist = load(f)
-        self.tracker_protected_list = []
-        self.tracker_nonprotected_list = []
+        self.tracker_list = []
+        self.up_tor_counter = 0
         self.torrent_hash_delete_list = []
         if self.use_log:
             self.tl.debug(self.tracker_whitelist)
@@ -71,7 +73,8 @@ class Qbt:
             printprocessor(self)
         if self.use_pushover:
             tornotifysummary(self)
-        tordelete(self)
+        if self.config["delete_torrents"]:
+            tordelete(self)
         
 # Run
 if  __name__== "__main__":
