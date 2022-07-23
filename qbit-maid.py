@@ -14,6 +14,8 @@ class Qbt:
         # Open the config. Needs a json file with the data in config.json.example
         c = open('./config.json')
         self.config = load(c)
+        w = open('./category-whitelist.json')
+        self.cat_whitelist = load(w)
         # Create the api object
         self.qbt_client = qbittorrentapi.Client(
             host=self.config["host"],
@@ -69,7 +71,7 @@ class Qbt:
             printprocessor(self)
         if self.use_pushover:
             tornotifysummary(self)
-        #tordelete(self)
+        tordelete(self)
         
 # Run
 if  __name__== "__main__":

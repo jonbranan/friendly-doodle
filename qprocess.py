@@ -3,7 +3,7 @@ def torprocessor(self):
     If torrent meets criteria for deletion, its infohash_v1 will be appended to self.torrent_hash_delete_list
     """
     for canidate in self.tracker_nonprotected_list:
-        if 'ipt' in canidate['tags']:
+        if self.config["protected_tag"] in canidate['tags']:
             if self.use_log:
                 self.tl.warning(f'["{canidate["name"][0:20]}..."] was in non-protected list.')
             continue
