@@ -69,6 +69,7 @@ class Qbt:
             listqbitapiinfo(self)
             listfirsttor(self)
         buildtorlist(self)
+        processcounts(self)
         #tordeletetags(self)
         if self.use_log:
             torrentcount(self)
