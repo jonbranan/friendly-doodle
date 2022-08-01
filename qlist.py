@@ -9,7 +9,7 @@ def buildtorlist(self):
             torrent = self.torrentlist.pop()
             if self.use_log:
                 self.tl.debug(f'["{torrent["name"][0:20]}..."] {torrent["infohash_v1"]}')
-            if torrent['added_on'] + self.minimum_age <= self.t.time():
+            if torrent['added_on'] + self.minimum_age >= self.t.time():
                 self.preme_tor_counter += 1
                 continue
             if torrent['category'] in self.cat_whitelist.values():

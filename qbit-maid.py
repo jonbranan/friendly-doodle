@@ -6,6 +6,7 @@ from qlist import *
 from qlogging import *
 from qprocess import *
 import time
+import datetime
 import logging
 from collections import Counter
 
@@ -13,6 +14,7 @@ class Qbt:
     def __init__(self):
         """Main object, should be calling functions from qlist.py, qlogging.py and qprocess.py"""
         # Open the config. Needs a json file with the data in config.json.example
+        self.st = datetime.datetime.now()
         c = open('./config.json')
         self.config = load(c)
         w = open('./category-whitelist.json')
@@ -65,6 +67,7 @@ class Qbt:
         # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
         #Main process block
+        #debugpremecal(self)
         if self.use_log:
             listqbitapiinfo(self)
             listfirsttor(self)
@@ -76,11 +79,12 @@ class Qbt:
         torprocessor(self)
         if self.use_log:
             printprocessor(self)
-        if self.use_pushover:
-            tornotifysummary(self)
         if self.config["delete_torrents"]:
             tordelete(self)
-        
+        self.et = datetime.datetime.now()
+        getscriptruntime(self)
+        if self.use_pushover:
+            tornotifysummary(self)
 # Run
 if  __name__== "__main__":
     Qbt()

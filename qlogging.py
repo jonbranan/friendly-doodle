@@ -39,7 +39,8 @@ def tornotifysummary(self):
     Protected: {self.c[self.tracker_protected_tag]}\n\
     Non-protected: {self.c[self.tracker_non_protected_tag]}\n\
     Orphaned: {self.up_tor_counter}\n\
-    Marked for deletion: {len(self.torrent_hash_delete_list)}", title="--- qbit-maid summary ---")
+    Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
+    {self.extm}", title="--- qbit-maid summary ---")
 
 def getunixtimestamp(self):
     """Used for debuging and development related to unixtimestamps, not used in main script but useful"""
@@ -73,3 +74,16 @@ def torrentcount(self):
 
 def torlisttags(self):
     pass
+
+def debugpremecal(self):
+    for torrent in self.torrentlist:
+        if torrent['infohash_v1'] == 'a89b484ea375094af53ce89ecbea14bf086d6284':
+            print(torrent["name"][0:20])
+            print(torrent['added_on'] + self.minimum_age >= self.t.time())
+
+def getscriptruntime(self):
+    elapsed_time = self.et - self.st
+    if self.use_log:
+        self.tl.info(f'Execution time: [{elapsed_time}]')
+    if self.use_pushover:
+        self.extm = f"Execution time: [{elapsed_time}]"
