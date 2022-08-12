@@ -47,12 +47,15 @@ def getunixtimestamp(self):
     self.uts = self.t.time()
     self.tl.info(self.uts)
 
-def writetor(self, filepath='./torrentinfo.txt'):
+def writetor(self, filepath='./torrentinfo.json'):
     """Write all torrent data to a file.
     Useful for development of new features.
     """
-    with open(filepath, 'w') as fp:
-        fp.write(str(self.torrentlist))
+    json_init = self.l(self.torrentlist)
+    print(json_init)
+    # json_object = self.d(self.torrentlist, indent=4)
+    # with open(filepath, 'w') as fp:
+    #     fp.write(json_object)
 
 def listfirsttor(self, index=0):
     """Only lists the first torrent"""
@@ -87,3 +90,6 @@ def getscriptruntime(self):
         self.tl.info(f'Execution time: [{elapsed_time}]')
     if self.use_pushover:
         self.extm = f"Execution time: [{elapsed_time}]"
+
+def getobjecttype(object):
+    print(type(object))

@@ -2,6 +2,7 @@
 import qbittorrentapi
 import pushover
 from json import load
+from json import dump
 from qlist import *
 from qlogging import *
 from qprocess import *
@@ -66,6 +67,9 @@ class Qbt:
         self.torrentlist = {}
         # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
+        self.d = dump
+        self.l = load
+        writetor(self)
         #Main process block
         #debugpremecal(self)
         if self.use_log:
