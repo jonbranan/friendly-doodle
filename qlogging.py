@@ -51,11 +51,7 @@ def writetor(self, filepath='./torrentinfo.json'):
     """Write all torrent data to a file.
     Useful for development of new features.
     """
-    json_init = self.l(self.torrentlist)
-    print(json_init)
-    # json_object = self.d(self.torrentlist, indent=4)
-    # with open(filepath, 'w') as fp:
-    #     fp.write(json_object)
+    pass
 
 def listfirsttor(self, index=0):
     """Only lists the first torrent"""

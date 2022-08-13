@@ -2,7 +2,6 @@
 import qbittorrentapi
 import pushover
 from json import load
-from json import dump
 from qlist import *
 from qlogging import *
 from qprocess import *
@@ -63,21 +62,16 @@ class Qbt:
             self.tl.info('Connected.')
         except qbittorrentapi.APIError as e:
             self.tl.exception(e)
-            self.poc.send_message(e, title="qbit-maid API ERROR")
-        self.torrentlist = {}
+            self.po.send_message(e, title="qbit-maid API ERROR")
+        # self.torrentlist = {}
         # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
-        self.d = dump
-        self.l = load
-        writetor(self)
         #Main process block
-        #debugpremecal(self)
         if self.use_log:
             listqbitapiinfo(self)
             listfirsttor(self)
         buildtorlist(self)
         processcounts(self)
-        #tordeletetags(self)
         if self.use_log:
             torrentcount(self)
         torprocessor(self)
