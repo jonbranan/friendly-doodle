@@ -66,6 +66,9 @@ class Qbt:
         # self.torrentlist = {}
         # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
+        self.d = dump
+        self.l = load
+        writetor(self)
         #Main process block
         if self.use_log:
             listqbitapiinfo(self)
