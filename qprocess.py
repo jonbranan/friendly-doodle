@@ -32,7 +32,7 @@ def torprocessor(self):
             if self.use_log:   
                 self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion.')
         else:
-            dragnet(self, canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20])
+            dragnet(canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20])
             self.tl.info(f'["{canidate["name"][0:20]}..."] is orphaned.')
             self.up_tor_counter += 1
             continue
@@ -69,5 +69,5 @@ def isnonprotectedtor(setnonprotectedtag, tortags):
     if setnonprotectedtag in tortags:
         return True
 
-def dragnet(self,state,ratio,tags,added,age,time,thash,tname):
+def dragnet(state,ratio,tags,added,age,time,thash,tname):
     pass

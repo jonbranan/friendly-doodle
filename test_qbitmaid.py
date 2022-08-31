@@ -1,5 +1,6 @@
 import unittest
-from qlist import ispreme,iscatignored,istrackerblank,isprotectedtracker
+from qlist import ispreme,iscatignored,istrackerblank,isprotectedtracker,isnotprotectedtracker,istagblank
+from qprocess import isdownloading,isprotectedunderratio,isoldtor,isprotectedoverratio,isnonprotectedtor
 
 class TestQbitmaid(unittest.TestCase):
     def test_ispreme_sanity(self):
@@ -38,19 +39,59 @@ class TestQbitmaid(unittest.TestCase):
         pass
 
     def test_isnotprotectedtracker_sanity(self):
-        pass
+        self.assertFalse(isnotprotectedtracker('https://a.com/',['a.com','b.me','c.io']))
+        self.assertTrue(isnotprotectedtracker('https://google.com/',['a.com','b.me','c.io']))
+        self.assertTrue(isnotprotectedtracker('https://d.com',['a.com','b.me','c.io']))
 
     def test_isnotprotectedtracker(self):
         pass
 
     def test_istagblank(self):
+        self.assertTrue(istagblank(''))
+        self.assertFalse(istagblank('a'))
+        self.assertFalse(istagblank(1))
+        self.assertFalse(istagblank(1.0001))
+        self.assertFalse(istagblank(False))
+        self.assertFalse(istagblank(True))
+
+    def test_isdownloading_sanity(self):
+        self.assertTrue(isdownloading('downloading'))
+    
+    def test_isdownloading(self):
+        self.assertFalse(isdownloading('DOWNLOADING'))
+        self.assertFalse(isdownloading('dOwNlOaDiNg'))
+
+    def test_isprotectedunderratio_sanity(self):
+        self.assertTrue(isprotectedunderratio(0.5,1,'a','a,b,c'))
+
+    def test_isprotectedunderratio(self):
         pass
 
-    def test_(self):
+    def test_isoldtor_sanity(self):
+        self.assertTrue(isoldtor(1,2,4))
+
+    def test_isoldtor(self):
         pass
-    
-    def test_(self):
+
+    def test_isprotectedoverratio_sanity(self):
+        self.assertTrue(isprotectedoverratio(2,1,'a','a,b,c'))
+
+    def test_isprotectedoverratio(self):
         pass
+
+    def test_isnonprotectedtor_sanity(self):
+        self.assertTrue(isnonprotectedtor('a','a,b,c'))
+
+    def test_isnonprotectedtor(self):
+        pass
+
+        pass
+
+    # def test__sanity(self):
+    #     pass
+
+    # def test_(self):
+    #     pass
         
 if __name__ == '__main__':
     unittest.main()
