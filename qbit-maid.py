@@ -9,6 +9,7 @@ import time
 import datetime
 import logging
 from collections import Counter
+import csv
 
 class Qbt:
     def __init__(self):
@@ -30,6 +31,7 @@ class Qbt:
         self.tl = logging
         self.po = pushover
         self.ct = Counter
+        self.cv = csv
         # Variables torlog uses from config.json
         self.use_pushover = self.config["use_pushover"]
         self.use_log = self.config["use_log"]
@@ -63,7 +65,6 @@ class Qbt:
         except qbittorrentapi.APIError as e:
             self.tl.exception(e)
             self.po.send_message(e, title="qbit-maid API ERROR")
-        # self.torrentlist = {}
         # Pulling all torrent data
         self.torrentlist = self.qbt_client.torrents_info()
         #Main process block

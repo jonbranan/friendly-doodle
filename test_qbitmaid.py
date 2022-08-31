@@ -85,8 +85,6 @@ class TestQbitmaid(unittest.TestCase):
     def test_isnonprotectedtor(self):
         pass
 
-        pass
-
     # def test__sanity(self):
     #     pass
 
