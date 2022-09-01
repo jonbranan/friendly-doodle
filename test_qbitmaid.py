@@ -71,7 +71,9 @@ class TestQbitmaid(unittest.TestCase):
         self.assertTrue(isoldtor(1,2,4))
 
     def test_isoldtor(self):
-        pass
+        self.assertFalse(isoldtor(1661150664,2419200,1662049004.2101078))
+        self.assertFalse(isoldtor(1661150664,2419200,1662049004))
+        self.assertFalse(isoldtor(1661150664.000000,2419200.0000000,1662049004.2101078))
 
     def test_isprotectedoverratio_sanity(self):
         self.assertTrue(isprotectedoverratio(2,1,'a','a,b,c'))
