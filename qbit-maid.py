@@ -43,6 +43,8 @@ class Qbt:
         self.tracker_non_protected_tag = self.config["non_protected_tag"]
         self.minimum_age = self.config["minimum_age"]
         self.age = self.config["age"]
+        self.enable_dragnet = self.config["enable_dragnet"]
+        self.dragnet_outfile = self.config["dragnet_outfile"]
         # Calling log and notify functions
         torlog(self)
         tornotify(self)
