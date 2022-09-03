@@ -4,9 +4,9 @@ def build_tor_list(self):
         V2 will certainly be more performant. The reason two lists were used was so that torrents 
         that are in public trackers woudln't be around as long as torrents from a private tracker.
         """
-        self.total_torrents = len(self.torrentlist) 
-        while self.torrentlist:
-            torrent = self.torrentlist.pop()
+        self.total_torrents = len(self.torrent_list) 
+        while self.torrent_list:
+            torrent = self.torrent_list.pop()
             if self.use_log:
                 self.tl.debug(f'["{torrent["name"][0:20]}..."] {torrent["infohash_v1"]}')
             if is_ignored_tag(self.ignored_tags.values(),torrent['tags']):

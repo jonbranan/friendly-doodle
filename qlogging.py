@@ -1,10 +1,10 @@
 def tor_log(self):
     """Setting up the log file, if self.use_log is set to true and self.loglevel is DEBUG OR INFO"""
     if self.use_log:
-        if self.loglevel == 'DEBUG':
-            self.tl.basicConfig(filename=self.logpath, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.DEBUG)
-        elif self.loglevel == 'INFO':
-            self.tl.basicConfig(filename=self.logpath, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.INFO)
+        if self.log_level == 'DEBUG':
+            self.tl.basicConfig(filename=self.log_path, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.DEBUG)
+        elif self.log_level == 'INFO':
+            self.tl.basicConfig(filename=self.log_path, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.INFO)
 
 def tor_notify(self):
     """Seting up to use pushover, if self.use_pushover is set to true and 
@@ -56,7 +56,7 @@ def writetor(self, filepath='./torrentinfo.json'):
 def list_first_tor(self, index=0):
     """Only lists the first torrent"""
     self.tl.debug('First torrent in the list:')
-    torrent = self.torrentlist[index]
+    torrent = self.torrent_list[index]
     for k,v in torrent.items():
          self.tl.debug(f'{k}:  {v}')
     self.tl.debug('\n')
@@ -75,7 +75,7 @@ def torlisttags(self):
     pass
 
 def debugpremecal(self):
-    for torrent in self.torrentlist:
+    for torrent in self.torrent_list:
         if torrent['infohash_v1'] == 'a89b484ea375094af53ce89ecbea14bf086d6284':
             print(torrent["name"][0:20])
             print(torrent['added_on'] + self.minimum_age >= self.t.time())
