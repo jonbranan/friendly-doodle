@@ -37,10 +37,10 @@ You will need a config.json in the root directory.
 | port | number, port of admin gui(used for api aswell) |
 | username | admin account for qbittorrent |
 | password | password for admin account |
-| loglevel | is what log messages are written to the log file. INFO or DEBUG are valid entries(case sensitive) |
+| log_level | is what log messages are written to the log file. INFO or DEBUG are valid entries(case sensitive) |
 | protected_tag | used to mark torrents to handle with care |
 | non_protected_tag | we don't care about these torrents |
-| logpath | will write a log in root directory if left as is other wise specify other path using forward slashes |
+| log_path | will write a log in root directory if left as is other wise specify other path using forward slashes |
 | age | number, seconds for how long we keep torrents from IPTORRENTS |
 | minimum_age | age in seconds torrents should reached before they are removed |
 | use_pushover | true or false to enable or disable pushover notification summary |

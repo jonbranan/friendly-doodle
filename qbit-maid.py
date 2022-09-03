@@ -39,8 +39,8 @@ class Qbt:
         self.use_log = self.config["use_log"]
         self.po_key = self.config["po_key"]
         self.po_token = self.config["po_token"]
-        self.logpath = self.config["logpath"]
-        self.loglevel = self.config["loglevel"]
+        self.log_path = self.config["log_path"]
+        self.log_level = self.config["log_level"]
         self.tracker_protected_tag = self.config["protected_tag"]
         self.tracker_non_protected_tag = self.config["non_protected_tag"]
         self.minimum_age = self.config["minimum_age"]
@@ -48,8 +48,8 @@ class Qbt:
         self.enable_dragnet = self.config["enable_dragnet"]
         self.dragnet_outfile = self.config["dragnet_outfile"]
         # Calling log and notify functions
-        torlog(self)
-        tornotify(self)
+        tor_log(self)
+        tor_notify(self)
         self.t = time
         # Pulling domain names to treat carefully
         f = open('./ignored_domains.json')
@@ -70,24 +70,24 @@ class Qbt:
             self.tl.exception(e)
             self.po.send_message(e, title="qbit-maid API ERROR")
         # Pulling all torrent data
-        self.torrentlist = self.qbt_client.torrents_info()
+        self.torrent_list = self.qbt_client.torrents_info()
         #Main process block
         if self.use_log:
-            listqbitapiinfo(self)
-            listfirsttor(self)
-        buildtorlist(self)
-        processcounts(self)
+            list_qbit_api_info(self)
+            list_first_tor(self)
+        build_tor_list(self)
+        process_counts(self)
         if self.use_log:
-            torrentcount(self)
-        torprocessor(self)
+            torrent_count(self)
+        tor_processor(self)
         if self.use_log:
-            printprocessor(self)
+            print_processor(self)
         if self.config["delete_torrents"]:
-            tordelete(self)
+            tor_delete(self)
         self.et = datetime.datetime.now()
-        getscriptruntime(self)
+        get_script_runtime(self)
         if self.use_pushover:
-            tornotifysummary(self)
+            tor_notify_summary(self)
 # Run
 if  __name__== "__main__":
     Qbt()
