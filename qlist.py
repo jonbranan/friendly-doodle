@@ -9,6 +9,9 @@ def buildtorlist(self):
             torrent = self.torrentlist.pop()
             if self.use_log:
                 self.tl.debug(f'["{torrent["name"][0:20]}..."] {torrent["infohash_v1"]}')
+            if isignoredtag(self.ignored_tags.values(),torrent['tags']):
+                self.ignored_counter += 1
+                continue
             # if torrent['added_on'] + self.minimum_age >= self.t.time():
             if ispreme(torrent['added_on'], self.minimum_age, self.t.time()):
                 self.preme_tor_counter += 1
@@ -63,4 +66,8 @@ def isnotprotectedtracker(tracker, trackerlist):
 def istagblank(tag):
     if tag == '':
         return True
-    
+
+def isignoredtag(igtags, tortags):
+    for igt in igtags:
+        if igt in tortags:
+            return True

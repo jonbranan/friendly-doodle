@@ -20,6 +20,8 @@ class Qbt:
         self.config = load(c)
         w = open('./category-whitelist.json')
         self.cat_whitelist = load(w)
+        tg = open('./ignored_tags.json')
+        self.ignored_tags = load(tg)
         # Create the api object
         self.qbt_client = qbittorrentapi.Client(
             host=self.config["host"],
