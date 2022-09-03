@@ -1,5 +1,5 @@
 import unittest
-from qlist import ispreme,iscatignored,istrackerblank,isprotectedtracker,isnotprotectedtracker,istagblank
+from qlist import ispreme,iscatignored,istrackerblank,isprotectedtracker,isnotprotectedtracker,istagblank,isignoredtag
 from qprocess import isdownloading,isprotectedunderratio,isoldtor,isprotectedoverratio,isnonprotectedtor
 
 class TestQbitmaid(unittest.TestCase):
@@ -86,6 +86,12 @@ class TestQbitmaid(unittest.TestCase):
 
     def test_isnonprotectedtor(self):
         pass
+
+    def test_isignoredtag_sanity(self):
+        self.assertTrue(isignoredtag(['a','b','c'], 'first,second,third,a'))
+    
+    def test_isignoredtag_sanity(self):
+        self.assertTrue(isignoredtag(['a','b','c'], 'first,second,third,a'))
 
     # def test__sanity(self):
     #     pass

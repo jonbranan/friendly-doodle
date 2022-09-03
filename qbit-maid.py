@@ -18,8 +18,10 @@ class Qbt:
         self.st = datetime.datetime.now()
         c = open('./config.json')
         self.config = load(c)
-        w = open('./category-whitelist.json')
+        w = open('./ignored_categories.json')
         self.cat_whitelist = load(w)
+        tg = open('./ignored_tags.json')
+        self.ignored_tags = load(tg)
         # Create the api object
         self.qbt_client = qbittorrentapi.Client(
             host=self.config["host"],
@@ -50,7 +52,7 @@ class Qbt:
         tornotify(self)
         self.t = time
         # Pulling domain names to treat carefully
-        f = open('./tracker-whitelist.json')
+        f = open('./ignored_domains.json')
         self.tracker_whitelist = load(f)
         self.tracker_list = []
         self.up_tor_counter = 0
