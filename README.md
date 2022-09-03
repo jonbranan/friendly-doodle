@@ -46,6 +46,8 @@ Config.json
     "po_key": "",
     "po_token": "",
     "delete_torrents": false
+    "enable_dragnet": false,
+    "dragnet_outfile": "./orphaned.csv"
 }
 ```
 
@@ -75,3 +77,4 @@ You will need a category-whitelist.json in the root directory. This will ignore 
 | po_key | pushover key |
 | po_token | pushover api token |
 | delete_torrents | true or false to enable or disable deletion. Useful for dry-runs |
+| enable_dragnet | true or false to enable dragnet functionality. Useful for debugging |

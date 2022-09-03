@@ -1,3 +1,6 @@
+from cgitb import enable
+
+
 def torprocessor(self):
     """Main logic to sort through both self.tracker_nonprotected_list and self.tracker_protected_list
     If torrent meets criteria for deletion, its infohash_v1 will be appended to self.torrent_hash_delete_list
@@ -32,7 +35,8 @@ def torprocessor(self):
             if self.use_log:   
                 self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion.')
         else:
-            dragnet(self,canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20])
+            if self.enable_dragnet:
+                dragnet(self,canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20])
             self.tl.info(f'["{canidate["name"][0:20]}..."] is orphaned.')
             self.up_tor_counter += 1
             continue
@@ -72,7 +76,7 @@ def isnonprotectedtor(setnonprotectedtag, tortags):
 def dragnet(self,state,ratio,tags,added,age,time,thash,tname):
     header = ['state','ratio','tags','added','age','time','thash','tname']
     row = [state,ratio,tags,added,age,time,thash,tname]
-    with open('./orphanedtorrents.csv', 'w', encoding='UTF8', newline='') as f:
+    with open(self.dragnet_outfile, 'w', encoding='UTF8', newline='') as f:
         writer = self.cv.writer(f)
         if f.tell() == 0:
             writer.writerow(header)
