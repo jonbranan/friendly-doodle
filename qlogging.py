@@ -1,12 +1,12 @@
-def torlog(self):
+def tor_log(self):
     """Setting up the log file, if self.use_log is set to true and self.loglevel is DEBUG OR INFO"""
     if self.use_log:
-        if self.loglevel == 'DEBUG':
-            self.tl.basicConfig(filename=self.logpath, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.DEBUG)
-        elif self.loglevel == 'INFO':
-            self.tl.basicConfig(filename=self.logpath, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.INFO)
+        if self.log_level == 'DEBUG':
+            self.tl.basicConfig(filename=self.log_path, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.DEBUG)
+        elif self.log_level == 'INFO':
+            self.tl.basicConfig(filename=self.log_path, format='%(asctime)s:%(levelname)s:%(message)s', encoding='utf-8', datefmt='%m/%d/%Y %I:%M:%S %p',level=self.tl.INFO)
 
-def tornotify(self):
+def tor_notify(self):
     """Seting up to use pushover, if self.use_pushover is set to true and 
     if valid self.po_key and self.po_token is provided in the config file"""
     if self.use_pushover:
@@ -16,12 +16,12 @@ def tornotifytest(self):
     """Used to make sure tornotify is working and messages are getting to the client"""
     self.poc.send_message("Test Message", title="qbit-maid")
 
-def processcounts(self):
+def process_counts(self):
     self.c = self.ct()
     for item in self.tracker_list:
         self.c[item["tags"]] += 1
         
-def printprocessor(self):
+def print_processor(self):
     """Print summary of torrents"""
     self.tl.info(f'Total: {self.total_torrents}')
     self.tl.info(f'Premature: {self.preme_tor_counter}')
@@ -31,7 +31,7 @@ def printprocessor(self):
     self.tl.info(f'Orphaned: {self.up_tor_counter}')
     self.tl.info(f'Marked for deletion: {len(self.torrent_hash_delete_list)}')
 
-def tornotifysummary(self):
+def tor_notify_summary(self):
     """Main notification method when the app is used in an automated fashion"""
     self.poc.send_message(f"   Total: {self.total_torrents}\n\
     Premature: {self.preme_tor_counter}\n\
@@ -53,20 +53,20 @@ def writetor(self, filepath='./torrentinfo.json'):
     """
     pass
 
-def listfirsttor(self, index=0):
+def list_first_tor(self, index=0):
     """Only lists the first torrent"""
     self.tl.debug('First torrent in the list:')
-    torrent = self.torrentlist[index]
+    torrent = self.torrent_list[index]
     for k,v in torrent.items():
          self.tl.debug(f'{k}:  {v}')
     self.tl.debug('\n')
 
-def listqbitapiinfo(self):
+def list_qbit_api_info(self):
         """Writes torrent info to log file"""
         self.tl.debug(f'qBittorrent: {self.qbt_client.app.version}')
         self.tl.debug(f'qBittorrent Web API: {self.qbt_client.app.web_api_version}')
 
-def torrentcount(self):
+def torrent_count(self):
     """write torrent counts to log file"""
     self.tl.debug(f'torrents that are protected {self.tracker_list.count("ipt")}')
     self.tl.debug(f'torrents that aren\'t protected {self.tracker_list.count("public")}')
@@ -75,12 +75,12 @@ def torlisttags(self):
     pass
 
 def debugpremecal(self):
-    for torrent in self.torrentlist:
+    for torrent in self.torrent_list:
         if torrent['infohash_v1'] == 'a89b484ea375094af53ce89ecbea14bf086d6284':
             print(torrent["name"][0:20])
             print(torrent['added_on'] + self.minimum_age >= self.t.time())
 
-def getscriptruntime(self):
+def get_script_runtime(self):
     elapsed_time = self.et - self.st
     if self.use_log:
         self.tl.info(f'Execution time: [{elapsed_time}]')
