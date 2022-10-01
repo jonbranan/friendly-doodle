@@ -76,8 +76,8 @@ class Qbt:
             list_first_tor(self)
         build_tor_list(self)
         process_counts(self)
-        # if self.use_log:
-        #     torrent_count(self)
+        if self.use_log:
+            torrent_count(self)
         tor_processor(self)
         if self.use_log:
             print_processor(self)

@@ -45,7 +45,8 @@ def tor_delete(self):
     if self.use_log:
         self.tl.debug('Hash list submitted for deletion:')
         self.tl.debug(self.torrent_hash_delete_list)
-    self.qbt_client.torrents_delete(True, self.torrent_hash_delete_list)
+    if self.torrent_hash_delete_list:
+        self.qbt_client.torrents_delete(True, self.torrent_hash_delete_list)
 
 def is_downloading(state):
     if state == 'downloading':

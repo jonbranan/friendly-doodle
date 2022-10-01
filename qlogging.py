@@ -42,17 +42,6 @@ def tor_notify_summary(self):
     Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
     {self.extm}", title="--- qbit-maid summary ---")
 
-def getunixtimestamp(self):
-    """Used for debuging and development related to unixtimestamps, not used in main script but useful"""
-    self.uts = self.t.time()
-    self.tl.info(self.uts)
-
-def writetor(self, filepath='./torrentinfo.json'):
-    """Write all torrent data to a file.
-    Useful for development of new features.
-    """
-    pass
-
 def list_first_tor(self, index=0):
     """Only lists the first torrent"""
     self.tl.debug('First torrent in the list:')
@@ -68,18 +57,8 @@ def list_qbit_api_info(self):
 
 def torrent_count(self):
     """write torrent counts to log file"""
-    #Doesn't work because tracker_list doesn't have a count property. Each object does. List comprehension?
-    self.tl.debug(f'torrents that are protected {self.tracker_list.count("ipt")}')
-    self.tl.debug(f'torrents that aren\'t protected {self.tracker_list.count("public")}')
-
-def torlisttags(self):
-    pass
-
-def debugpremecal(self):
-    for torrent in self.torrent_list:
-        if torrent['infohash_v1'] == 'a89b484ea375094af53ce89ecbea14bf086d6284':
-            print(torrent["name"][0:20])
-            print(torrent['added_on'] + self.minimum_age >= self.t.time())
+    self.tl.debug(f'*** Torrents with tag["{self.tracker_protected_tag}"] {self.c[self.tracker_protected_tag]} ***')
+    self.tl.debug(f'*** Torrents with tag["{self.tracker_non_protected_tag}"] {self.c[self.tracker_non_protected_tag]} ***')
 
 def get_script_runtime(self):
     elapsed_time = self.et - self.st
@@ -87,6 +66,3 @@ def get_script_runtime(self):
         self.tl.info(f'Execution time: [{elapsed_time}]')
     if self.use_pushover:
         self.extm = f"Execution time: [{elapsed_time}]"
-
-def getobjecttype(object):
-    print(type(object))
