@@ -68,6 +68,7 @@ def list_qbit_api_info(self):
 
 def torrent_count(self):
     """write torrent counts to log file"""
+    #Doesn't work because tracker_list doesn't have a count property. Each object does. List comprehension?
     self.tl.debug(f'torrents that are protected {self.tracker_list.count("ipt")}')
     self.tl.debug(f'torrents that aren\'t protected {self.tracker_list.count("public")}')
 

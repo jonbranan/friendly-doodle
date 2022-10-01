@@ -9,11 +9,11 @@
     "non_protected_tag": "public",
     "age": 2419200,
     "minimum_age": 432000,
-    "use_pushover": true,
+    "use_pushover": false,
     "use_log": true,
     "po_key": "",
     "po_token": "",
     "delete_torrents": false,
     "enable_dragnet": true,
-    "dragnet_outfile": "./orphaned.csv"
+    "dragnet_outfile": "./dragnet.csv"
 }

@@ -1,4 +1,3 @@
-#The first file shall contain an client to the qbit api and the processing of the torrents.
 import qbittorrentapi
 import pushover
 from json import load
@@ -34,7 +33,7 @@ class Qbt:
         self.po = pushover
         self.ct = Counter
         self.cv = csv
-        # Variables torlog uses from config.json
+        # Init config.json
         self.use_pushover = self.config["use_pushover"]
         self.use_log = self.config["use_log"]
         self.po_key = self.config["po_key"]
@@ -77,8 +76,8 @@ class Qbt:
             list_first_tor(self)
         build_tor_list(self)
         process_counts(self)
-        if self.use_log:
-            torrent_count(self)
+        # if self.use_log:
+        #     torrent_count(self)
         tor_processor(self)
         if self.use_log:
             print_processor(self)
