@@ -30,7 +30,7 @@ def tor_processor(self):
                 self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion.')
         else:
             if self.enable_dragnet:
-                dragnet(self.cv,self.dragnet_outfile,canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20])
+                dragnet(self.cv,self.dragnet_outfile,canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker'])
             self.tl.info(f'["{canidate["name"][0:20]}..."] is orphaned.')
             self.up_tor_counter += 1
             continue
@@ -68,9 +68,9 @@ def is_not_protected_tor(setnonprotectedtag, tortags):
     if setnonprotectedtag in tortags:
         return True
 
-def dragnet(csv_obj,outfile,state,ratio,tags,added,age,time,thash,tname):
-    header = ['state','ratio','tags','added','age','time','thash','tname']
-    row = [state,ratio,tags,added,age,time,thash,tname]
+def dragnet(csv_obj,outfile,state,ratio,tags,added,age,time,thash,tname,trname):
+    header = ['state','ratio','tags','added','age','time','thash','tname','trname']
+    row = [state,ratio,tags,added,age,time,thash,tname,trname]
     with open(outfile, 'a+', encoding='UTF8', newline='') as f:
         writer = csv_obj.writer(f)
         if f.tell() == 0:

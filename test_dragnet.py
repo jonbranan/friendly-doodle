@@ -14,7 +14,8 @@ class TestDragnet(unittest.TestCase):
         time = 123456
         thash = 'asfasdf23412adfqwer'
         tname = 'thisismynamehahahah'
-        dragnet(self.cv,outfile,state,ratio,tags,added,age,time,thash,tname)
+        trname = 'https://localhost.stackoverflow.tech/317332f1c125bc9c1b9b14fb8e054908/announce'
+        dragnet(self.cv,outfile,state,ratio,tags,added,age,time,thash,tname,trname)
 
 if __name__ == '__main__':
     unittest.main()
