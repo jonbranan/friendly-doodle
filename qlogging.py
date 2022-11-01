@@ -10,11 +10,11 @@ def tor_notify(self):
     """Seting up to use pushover, if self.use_pushover is set to true and 
     if valid self.po_key and self.po_token is provided in the config file"""
     if self.use_pushover:
-        self.poc = self.po.Client(self.po_key, api_token=self.po_token)
+        self.poc = self.po.Pushover(self.po_token)
 
 def tornotifytest(self):
     """Used to make sure tornotify is working and messages are getting to the client"""
-    self.poc.send_message("Test Message", title="qbit-maid")
+    self.poc.message(self.po_key, "Test Message", title="qbit-maid")
 
 def process_counts(self):
     self.c = self.ct()
@@ -33,7 +33,7 @@ def print_processor(self):
 
 def tor_notify_summary(self):
     """Main notification method when the app is used in an automated fashion"""
-    self.poc.send_message(f"   Total: {self.total_torrents}\n\
+    self.poc.message(self.po_key, f"   Total: {self.total_torrents}\n\
     Premature: {self.preme_tor_counter}\n\
     Ignored: {self.ignored_counter}\n\
     Protected: {self.c[self.tracker_protected_tag]}\n\
