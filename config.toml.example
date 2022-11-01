@@ -1,0 +1,43 @@
+[qbittorrent]
+host = "192.168.4.11"
+port = 8085
+username = "jman"
+password = "nO^touchy@"
+
+[logging]
+use_log = true
+log_level = "DEBUG"
+log_path = "./qc.log"
+
+[app_tags]
+protected_tag = "ipt" 
+non_protected_tag = "public"
+
+[torrent]
+age = 2419200
+minimum_age = 432000
+delete_torrents = true
+
+[pushover]
+use_pushover = false
+po_key = ""
+po_token = ""
+
+[dragnet]
+enable_dragnet = true
+dragnet_outfile = "./orphaned.csv"
+
+[ignored_categories]
+tech = "tech"
+books = "books"
+general = "general"
+
+[ignored_domains]
+iptorrents-empirehost = "ssl.empirehost.me"
+iptorrents-stackoverflow = "localhost.stackoverflow.tech"
+iptorrents-bgp = "routing.bgp.technology"
+
+[ignored_tags]
+first = "first"
+second = "second"
+third = "third"

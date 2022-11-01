@@ -1,6 +1,6 @@
 import qbittorrentapi
 import pushover
-from json import load
+from tomllib import load
 from qlist import *
 from qlogging import *
 from qprocess import *
@@ -15,44 +15,61 @@ class Qbt:
         """Main object, should be calling functions from qlist.py, qlogging.py and qprocess.py"""
         # Open the config. Needs a json file with the data in config.json.example
         self.st = datetime.datetime.now()
-        c = open('./config.json')
+        c = open('./config.toml', 'rb')
         self.config = load(c)
-        w = open('./ignored_categories.json')
-        self.cat_whitelist = load(w)
-        tg = open('./ignored_tags.json')
-        self.ignored_tags = load(tg)
-        # Create the api object
+
+        # # Create the api object
         self.qbt_client = qbittorrentapi.Client(
-            host=self.config["host"],
-            port=self.config["port"],
-            username=self.config["username"],
-            password=self.config["password"],
+            # qbittorrent
+            host=self.config["qbittorrent"]["host"],
+            port=self.config["qbittorrent"]["port"],
+            username=self.config["qbittorrent"]["username"],
+            password=self.config["qbittorrent"]["password"],
         )
         # Create the logging and pushover objects
         self.tl = logging
         self.po = pushover
         self.ct = Counter
         self.cv = csv
-        # Init config.json
-        self.use_pushover = self.config["use_pushover"]
-        self.use_log = self.config["use_log"]
-        self.po_key = self.config["po_key"]
-        self.po_token = self.config["po_token"]
-        self.log_path = self.config["log_path"]
-        self.log_level = self.config["log_level"]
-        self.tracker_protected_tag = self.config["protected_tag"]
-        self.tracker_non_protected_tag = self.config["non_protected_tag"]
-        self.minimum_age = self.config["minimum_age"]
-        self.age = self.config["age"]
-        self.enable_dragnet = self.config["enable_dragnet"]
-        self.dragnet_outfile = self.config["dragnet_outfile"]
+        # Init config.toml
+
+        # logging
+        self.use_log = self.config["logging"]["use_log"]
+        self.log_path = self.config["logging"]["log_path"]
+        self.log_level = self.config["logging"]["log_level"]
+
+        #app_tags
+        self.tracker_protected_tag = self.config["app_tags"]["protected_tag"]
+        self.tracker_non_protected_tag = self.config["app_tags"]["non_protected_tag"]
+
+        #torrent
+        self.delete_torrents = self.config["torrent"]["delete_torrents"]
+        self.minimum_age = self.config["torrent"]["minimum_age"]
+        self.age = self.config["torrent"]["age"]
+
+        #pushover
+        self.use_pushover = self.config["pushover"]["use_pushover"]
+        self.po_key = self.config["pushover"]["po_key"]
+        self.po_token = self.config["pushover"]["po_token"]
+
+        #dragnet
+        self.enable_dragnet = self.config["dragnet"]["enable_dragnet"]
+        self.dragnet_outfile = self.config["dragnet"]["dragnet_outfile"]
+
+        #ignored_categories
+        self.cat_whitelist = self.config["ignored_categories"]
+
+        #ignored_domains
+        self.tracker_whitelist = self.config["ignored_domains"]
+
+        #ignored_tags
+        self.ignored_tags = self.config["ignored_domains"]
+
         # Calling log and notify functions
         tor_log(self)
         tor_notify(self)
         self.t = time
         # Pulling domain names to treat carefully
-        f = open('./ignored_domains.json')
-        self.tracker_whitelist = load(f)
         self.tracker_list = []
         self.up_tor_counter = 0
         self.preme_tor_counter = 0
@@ -81,7 +98,7 @@ class Qbt:
         tor_processor(self)
         if self.use_log:
             print_processor(self)
-        if self.config["delete_torrents"]:
+        if self.delete_torrents:
             tor_delete(self)
         self.et = datetime.datetime.now()
         get_script_runtime(self)
