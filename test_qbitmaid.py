@@ -90,10 +90,8 @@ class TestQbitmaid(unittest.TestCase):
     def test_isignoredtag_sanity(self):
         self.assertTrue(is_ignored_tag(['a','b','c'], 'first,second,third,a'))
     
-    def test_isignoredtag_sanity(self):
-        self.assertTrue(is_ignored_tag(['a','b','c'], 'first,second,third,a'))
-
-
+    def test_isignoredtag(self):
+        self.assertTrue(is_ignored_tag(['save'], 'save,public,ipt'))
 
     # def test__sanity(self):
     #     pass
