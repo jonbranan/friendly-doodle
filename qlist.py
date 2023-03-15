@@ -15,12 +15,12 @@ def build_tor_list(self):
                     self.tl.warning(f'Torrent doesn\'t have a tracker ["{torrent["name"][0:20]}..."] [{torrent["tracker"]}]hash: {torrent["hash"]}')
                 self.ignored_counter += 1
                 continue
-            if is_cat_ignored(torrent['category'], self.cat_whitelist.values()):
+            elif is_cat_ignored(torrent['category'], self.cat_whitelist.values()):
                 if self.use_log:
                     self.tl.info(f'Ignored category: ["{torrent["name"][0:20]}..."] category:[{torrent["category"]}] hash: {torrent["hash"]}')
                 self.ignored_counter += 1
                 continue
-            if is_ignored_tag(self.ignored_tags.values(),torrent['tags']):
+            elif is_ignored_tag(self.ignored_tags.values(),torrent['tags']):
                 if self.use_log:
                     self.tl.info(f'Ignored tag: ["{torrent["name"][0:20]}..."] tags: {torrent["tags"]} hash: {torrent["hash"]}')
                 self.ignored_counter += 1
@@ -30,24 +30,24 @@ def build_tor_list(self):
                     self.tl.debug(f'Tagging new torrent: ["{torrent["name"][0:20]}..."] {torrent["tracker"]}hash: {torrent["hash"]}')
                 if is_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                     self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
-                if is_not_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
+                elif is_not_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                     self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
-            if is_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
+            if is_preme(torrent['added_on'], self.minimum_age, self.t.time()):
+                self.preme_tor_counter += 1
+                self.tl.debug(f'Premature torrent: ["{torrent["name"][0:20]}..."] hash: {torrent["hash"]}')
+                continue
+            elif is_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                 if is_tag_blank(torrent['tags']):
                     self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                     if self.use_log:
                         self.tl.debug(f'Tagging Protected torrent: ["{torrent["name"][0:20]}..."] {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.tracker_list.append(torrent)
-            if is_not_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
+            elif is_not_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                 if is_tag_blank(torrent['tags']):
                     self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
                     if self.use_log:
                         self.tl.debug(f'Tagging Non-protected torrent: ["{torrent["name"][0:20]}..."] {torrent["tracker"]}hash: {torrent["hash"]}')
                 self.tracker_list.append(torrent)
-            if is_preme(torrent['added_on'], self.minimum_age, self.t.time()):
-                self.preme_tor_counter += 1
-                self.tl.debug(f'Premature torrent: ["{torrent["name"][0:20]}..."] hash: {torrent["hash"]}')
-                continue
 
 
 def is_preme(added, minage, time):
