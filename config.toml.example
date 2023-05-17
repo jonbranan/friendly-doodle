@@ -23,6 +23,11 @@ use_pushover = false
 po_key = ""
 po_token = ""
 
+[apprise]
+host = "192.168.x.x"
+port = 8088
+aurls = 'mailto://user:pass@gmail.com'
+
 [dragnet]
 enable_dragnet = true
 dragnet_outfile = "./orphaned.csv"
