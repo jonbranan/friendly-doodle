@@ -16,6 +16,19 @@ def tor_notify(self):
     if self.use_pushover:
         self.poc = self.po.Pushover(self.po_token)
 
+def tor_notify_apprise(self, req_obj, app_obj):
+    """Use apprise"""
+    body = f"   Total: {self.total_torrents}\n\
+    Premature: {self.preme_tor_counter}\n\
+    Ignored: {self.ignored_counter}\n\
+    Protected: {self.c[self.tracker_protected_tag]}\n\
+    Non-protected: {self.c[self.tracker_non_protected_tag]}\n\
+    Orphaned: {self.up_tor_counter}\n\
+    Marked for deletion: {len(self.torrent_hash_delete_list)}\n\
+    {self.extm}"
+    title = "--- qbit-maid summary ---"
+    app_obj(req_obj, self.apprise_host, self.apprise_port, self.apprise_aurls, title, body)
+
 def tornotifytest(self):
     """Used to make sure tornotify is working and messages are getting to the client"""
     self.poc.message(self.po_key, "Test Message", title="qbit-maid")
@@ -69,4 +82,6 @@ def get_script_runtime(self):
     if self.use_log:
         self.tl.info(f'Execution time: [{elapsed_time}]')
     if self.use_pushover:
+        self.extm = f"Execution time: [{elapsed_time}]"
+    if self.use_apprise:
         self.extm = f"Execution time: [{elapsed_time}]"

@@ -4,11 +4,13 @@ from tomllib import load
 from qlist import *
 from qlogging import *
 from qprocess import *
+from AppriseClient import apprise_notify
 import time
 import datetime
 import logging
 from collections import Counter
 import csv
+import requests as r
 
 class Qbt:
     def __init__(self):
@@ -51,6 +53,12 @@ class Qbt:
         self.use_pushover = self.config["pushover"]["use_pushover"]
         self.po_key = self.config["pushover"]["po_key"]
         self.po_token = self.config["pushover"]["po_token"]
+
+        #apprise
+        self.use_apprise = self.config["apprise"]["use_apprise"]
+        self.apprise_host = self.config["apprise"]["host"]
+        self.apprise_port = self.config["apprise"]["port"]
+        self.apprise_aurls = self.config["apprise"]["aurls"]
 
         #dragnet
         self.enable_dragnet = self.config["dragnet"]["enable_dragnet"]
@@ -104,6 +112,8 @@ class Qbt:
         get_script_runtime(self)
         if self.use_pushover:
             tor_notify_summary(self)
+        if self.use_apprise:
+            tor_notify_apprise(self, r, apprise_notify)
 # Run
 if  __name__== "__main__":
     Qbt()
