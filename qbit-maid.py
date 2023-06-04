@@ -11,15 +11,22 @@ import logging
 from collections import Counter
 import csv
 import requests as r
-
+import os
+import sys
 class Qbt:
     def __init__(self):
         """Main object, should be calling functions from qlist.py, qlogging.py and qprocess.py"""
         # Open the config. Needs a json file with the data in config.json.example
         self.st = datetime.datetime.now()
-        c = open('./config.toml', 'rb')
-        self.config = load(c)
-
+        
+        config_file_path=os.environ["toml_path"]
+        with open(config_file_path, 'rb') as c:
+            self.config = load(c)
+        if os.path.exists('./config.toml'):
+            config_file_path = './config.toml'
+            with open(config_file_path, 'rb') as c:
+                self.config = load(c)
+        
         # # Create the api object
         self.qbt_client = qbittorrentapi.Client(
             # qbittorrent
