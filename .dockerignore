@@ -11,6 +11,11 @@ Dockerfile
 *.csv
 *.toml
 *.git*
+.dockerignore
+.DS_Store
+.vscode/*
+thunder-tests/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
