@@ -12,16 +12,17 @@ from collections import Counter
 import csv
 import requests as r
 import os
-import sys
+
 class Qbt:
     def __init__(self):
         """Main object, should be calling functions from qlist.py, qlogging.py and qprocess.py"""
         # Open the config. Needs a json file with the data in config.json.example
         self.st = datetime.datetime.now()
         
-        config_file_path=os.environ["toml_path"]
-        with open(config_file_path, 'rb') as c:
-            self.config = load(c)
+        if os.getenv("toml_path"):
+            config_file_path=os.getenv("toml_path")
+            with open(config_file_path, 'rb') as c:
+                self.config = load(c)
         if os.path.exists('./config.toml'):
             config_file_path = './config.toml'
             with open(config_file_path, 'rb') as c:
