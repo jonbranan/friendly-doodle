@@ -8,8 +8,12 @@ steps:
     registry: git.jbranan.com
     dry_run: true
     username: jblu
-    password: 494476000dc289866c203d3e13156432c81b9901
+    password: 
+      from_secret: gittea_drone
     repo: jblu/qbit-maid
     tags:
     - latest
     - main
+    when:
+      branch:
+      - main
