@@ -81,6 +81,10 @@ class Qbt:
         #ignored_tags
         self.ignored_tags = self.config["ignored_domains"]
 
+        #healthcheck
+        self.use_healthcheck = self.config["healthcheck"]["use_healthcheck"]
+        self.healthcheck_url = self.config["healthcheck"]["healthcheck_url"]
+
         # Calling log and notify functions
         tor_log(self)
         tor_notify(self)
@@ -122,6 +126,8 @@ class Qbt:
             tor_notify_summary(self)
         if self.use_apprise:
             tor_notify_apprise(self, r, apprise_notify)
+        if self.use_healthcheck:
+            send_ping(self, r, self.healthcheck_url)
 # Run
 if  __name__== "__main__":
     Qbt()
