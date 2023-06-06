@@ -1,0 +1,15 @@
+kind: pipeline
+name: default
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    registry: git.jbranan.com
+    dry_run: true
+    username: jblu
+    password: 494476000dc289866c203d3e13156432c81b9901
+    repo: jblu/qbit-maid
+    tags:
+    - latest
+    - main
