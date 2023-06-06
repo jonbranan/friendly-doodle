@@ -6,11 +6,11 @@ steps:
   image: plugins/docker
   settings:
     registry: git.jbranan.com
-    dry_run: true
+    dry_run: false
     username: jblu
     password: 
       from_secret: gittea_drone
-    repo: jblu/qbit-maid
+    repo: git.jbranan.com/jblu/qbit-maid
     tags:
     - latest
     - main
