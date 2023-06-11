@@ -12,6 +12,7 @@ from collections import Counter
 import csv
 import requests as r
 import os
+r.packages.urllib3.disable_warnings()
 
 class Qbt:
     def __init__(self):
