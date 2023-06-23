@@ -16,6 +16,7 @@ steps:
   when:
     branch:
       - main
+
 steps:
 - name: docker-test
   image: plugins/docker
