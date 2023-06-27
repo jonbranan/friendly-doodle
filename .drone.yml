@@ -1,6 +1,5 @@
 kind: pipeline
 name: default
-
 steps:
 - name: docker
   image: plugins/docker
@@ -16,6 +15,9 @@ steps:
   when:
     branch:
       - main
+    event:
+      - push
+      - pull_request
 - name: docker-test
   image: plugins/docker
   settings:
@@ -30,3 +32,28 @@ steps:
   when:
     branch:
       - dev*
+    event:
+      - push
+      - pull_request
+- name: test-main
+  image: git.jbranan.com/jblu/qbit-maid:latest
+  commands:
+  - python test_qbitmaid.py
+  - python test_dragnet.py
+  when:
+    branch:
+      - main
+    event:
+      - push
+      - pull_request
+- name: test-dev
+  image: git.jbranan.com/jblu/qbit-maid:dev
+  commands:
+  - python test_qbitmaid.py
+  - python test_dragnet.py
+  when:
+    branch:
+      - dev*
+    event:
+      - push
+      - pull_request
