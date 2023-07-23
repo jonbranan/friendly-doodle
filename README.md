@@ -2,6 +2,8 @@
 # qbit-maid
 > Warning: This application removes torrents that are over the minimum age and that are not part of the ignored categories, domains or tags. Please use the delete_torrents feature set to false when first testing its functionality.
 
+![](https://drone.jbranan.com/api/badges/jblu/phc/status.svg)
+
 The objective is to remove torrents based on the following criteria:
 - tracker domain name
 - age
