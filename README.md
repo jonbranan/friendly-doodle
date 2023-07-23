@@ -1,6 +1,6 @@
-# qbit-maid
 
-## Warning: This application removes torrents that are over the minimum age and that are not part of the ignored categories, domains or tags. Please use the delete_torrents feature set to false when first testing its functionality.
+# qbit-maid
+> Warning: This application removes torrents that are over the minimum age and that are not part of the ignored categories, domains or tags. Please use the delete_torrents feature set to false when first testing its functionality.
 
 The objective is to remove torrents based on the following criteria:
 - tracker domain name
@@ -8,94 +8,88 @@ The objective is to remove torrents based on the following criteria:
 - ratio
 - state
 
-```mermaid
-graph TD;
-    qbit-maid.py-->qlogging.py;
-    qbit-maid.py-->qlist.py;
-    qbit-maid.py-->qprocess.py;
-    qlogging.py-->qbit-maid.py;
-    qlist.py-->qbit-maid.py;
-    qprocess.py-->qbit-maid.py;
-```
+## Install
+### Docker(Recommended)
 
-| File | Purpose |
-| --- | --- |
-| qbit-maid.py | Client to the qbit api and calls functions from the other files |
-| qlist.py | Builds out torrent lists |
-| qlogging.py | Logging and push notification communication |
-| qprocess.py | Submits qualifying torrents for deletion |
-| test_qbitmaid.py | Unit tests |
-| ignored_categories.json | whitelist for categorys to ignore |
-| ignored_tags.json | whitelist for torrent tags to ignore |
-| ignored_trackers.json | whitelist of fqdn names to ignore |
+[package ](https://git.jbranan.com/jblu/-/packages/container/qbit-maid/latest)
 
-You will need a config.json in the root directory.
+    docker pull git.jbranan.com/jblu/qbit-maid:latest
 
-| Key | Value |
-| --- | --- |
-| host | string, ip or hostname of qbittorrent server |
-| port | number, port of admin gui(used for api aswell) |
-| username | admin account for qbittorrent |
-| password | password for admin account |
-| log_level | is what log messages are written to the log file. INFO or DEBUG are valid entries(case sensitive) |
-| protected_tag | used to mark torrents to handle with care |
-| non_protected_tag | we don't care about these torrents |
-| log_path | will write a log in root directory if left as is other wise specify other path using forward slashes |
-| age | number, seconds for how long we keep torrents from IPTORRENTS |
-| minimum_age | age in seconds torrents should reached before they are removed |
-| use_pushover | true or false to enable or disable pushover notification summary |
-| use_log | true or false to enable or disable writing to alog file |
-| po_key | pushover key |
-| po_token | pushover api token |
-| delete_torrents | true or false to enable or disable deletion. Useful for dry-runs |
-| enable_dragnet | true or false to enable dragnet functionality. Useful for debugging |
+#### Docker Run Command:
 
-It should look something like this:
-Config.json
-```
-{
-    "host": "192.168.1.1",
-    "port": 8080,
-    "username": "admin",
-    "password": "admin",
-    "loglevel": "INFO",
-    "logpath": "./qc.log",
-    "protected_tag": "ipt",
-    "non_protected_tag": "public",
-    "age": 2419200,
-    "minimum_age": 432000,
-    "use_pushover": false,
-    "use_log": true,
-    "po_key": "",
-    "po_token": "",
-    "delete_torrents": false
-    "enable_dragnet": false,
-    "dragnet_outfile": "./orphaned.csv"
-}
-```
+> Please note it is best practice to escape spaces in variables. That is why there is backslashes in the cron schedule.
 
-You will need a ignored_categories.json in the root directory. This will ignore any of the categories found in the values of the entries.
-```
-{
-    "example": "general",
-    "example2": "sonarr"
-}
-```
+    docker run --name qbit-maid -v /opt/qbit-maid:/config/ -e CRON=0\ 1\ *\ *\ * -e toml_path=/config/config.toml git.jbranan.com/jblu/qbit-maid
 
-You will need a ignored_domains.json in the root directory. This will ignore any torrents from these trackers.
-```
-{
-"iptorrents-empirehost": "ssl.empirehost.me",
-"iptorrents-stackoverflow": "localhost.stackoverflow.tech",
-"iptorrents-bgp": "routing.bgp.technology"
-}
-```
+#### Docker Compose
 
-You will need a ignored_tags.json in the root directory. This will ignore any torrents with these tags.
 ```
-{
-"first":"first",
-"second":"second",
-"third":"third"
-}
+version: '3.3'
+services:
+    qbit-maid:
+        image: git.jbranan.com/jblu/qbit-maid
+        container_name: qbit-maid
+        volumes:
+            - /opt/qbit-maid:/config
+        environment:
+            - CRON="0 1 * * *"
+            - toml_path=/config/config.toml
+```
+### Via Git
+    git clone https://git.jbranan.com/jblu/qbit-maid.git
+
+Qbit-maid will look for an environment variable *toml_path* for its configuration.If it doesn't find it, it will look for a config.toml file in it's own directory.
+##### config.toml
+```
+[qbittorrent]
+host = "192.168.x.x"
+port = 8080
+username = "user"
+password = "pass"
+
+[logging]
+use_log = true
+log_level = "INFO"
+log_path = "./qc.log"
+
+[app_tags]
+protected_tag = "ipt"
+non_protected_tag = "public"
+
+[torrent]
+age = 2419200
+minimum_age = 432000
+delete_torrents = false
+
+[pushover]
+use_pushover = false
+po_key = "<key>>"
+po_token = "<token>>"
+
+[apprise]
+use_apprise = false
+host = "192.168.x.x"
+port = 8088
+aurls = 'mailto://user:pass@gmail.com'
+
+[dragnet]
+enable_dragnet = false
+dragnet_outfile = "./orphaned.csv"
+
+[ignored_categories]
+tech = "tech"
+books = "books"
+general = "general"
+
+[ignored_domains]
+iptorrents-empirehost = "ssl.empirehost.me"
+iptorrents-stackoverflow = "localhost.stackoverflow.tech"
+iptorrents-bgp = "routing.bgp.technology"
+
+[ignored_tags]
+save = "save"
+
+[healthcheck]
+use_healthcheck = false
+healthcheck_url = "https://example.com/ping/<uuid>>"
 ```

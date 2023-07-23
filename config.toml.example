@@ -1,12 +1,12 @@
 [qbittorrent]
-host = "192.168.4.11"
-port = 8085
-username = "jman"
-password = "nO^touchy@"
+host = "192.168.x.x"
+port = 8080
+username = "user"
+password = "pass"
 
 [logging]
 use_log = true
-log_level = "DEBUG"
+log_level = "INFO"
 log_path = "./qc.log"
 
 [app_tags]
@@ -16,20 +16,21 @@ non_protected_tag = "public"
 [torrent]
 age = 2419200
 minimum_age = 432000
-delete_torrents = true
+delete_torrents = false
 
 [pushover]
 use_pushover = false
-po_key = ""
-po_token = ""
+po_key = "<key>>"
+po_token = "<token>>"
 
 [apprise]
+use_apprise = false
 host = "192.168.x.x"
 port = 8088
 aurls = 'mailto://user:pass@gmail.com'
 
 [dragnet]
-enable_dragnet = true
+enable_dragnet = false
 dragnet_outfile = "./orphaned.csv"
 
 [ignored_categories]
@@ -43,6 +44,8 @@ iptorrents-stackoverflow = "localhost.stackoverflow.tech"
 iptorrents-bgp = "routing.bgp.technology"
 
 [ignored_tags]
-first = "first"
-second = "second"
-third = "third"
+save = "save"
+
+[healthcheck]
+use_healthcheck = true
+healthcheck_url = "https://example.com/ping/<uuid>>"
