@@ -15,7 +15,7 @@ class TestQbitmaid(unittest.TestCase):
         self.assertTrue(is_cat_ignored('b', ['a','b','c']))
         self.assertTrue(is_cat_ignored('c', ['a','b','c']))
         self.assertFalse(is_cat_ignored('d', ['a','b','c']))
-        self.assertFalse(is_cat_ignored(1, ['a','b','c']))
+        self.assertFalse(is_cat_ignored(1, ['a','b','d']))
         self.assertFalse(is_cat_ignored(1.0000000, ['a','b','c']))
 
     def test_iscatignored(self):
