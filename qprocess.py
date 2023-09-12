@@ -12,9 +12,9 @@ def tor_processor(self):
         elif is_protected_under_ratio(canidate['ratio'], 1.05, self.tracker_protected_tag, canidate["tags"]):
             if self.use_log:
                 self.tl.debug(f'["{canidate["name"][0:20]}..."] is below a 1.05 ratio({canidate["ratio"]})')
-            if is_old_tor(canidate['added_on'], self.age, self.t.time()):
+            if is_old_tor(canidate['time_active'], self.max_age):
                 if self.use_log:
-                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {self.t.time() - self.age - canidate["added_on"]}')
+                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {canidate["time_active"]} Delta: {canidate["time_active"] - self.max_age}')
                 self.torrent_hash_delete_list.append(canidate['infohash_v1'])
                 if self.use_log:
                     self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion from the protected list.') 
@@ -56,8 +56,8 @@ def is_protected_under_ratio(torratio, setratio, settag, tortag):
     if torratio < float(setratio) and settag in tortag:
         return True
 
-def is_old_tor(toradd, setage, currenttime):
-    if toradd + setage <= currenttime:
+def is_old_tor(realage, maxage):
+    if realage >= maxage:
         return True
 
 def is_protected_over_ratio(torratio, setratio, settag, tortag):

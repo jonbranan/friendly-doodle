@@ -14,8 +14,8 @@ protected_tag = "ipt"
 non_protected_tag = "public"
 
 [torrent]
-age = 2419200
-minimum_age = 432000
+max_age = 2419200
+min_age = 432000
 delete_torrents = false
 
 [pushover]

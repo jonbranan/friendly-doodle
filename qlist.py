@@ -32,9 +32,9 @@ def build_tor_list(self):
                     self.qbt_client.torrents_add_tags(self.tracker_protected_tag,torrent['hash'])
                 elif is_not_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                     self.qbt_client.torrents_add_tags(self.tracker_non_protected_tag,torrent['hash'])
-            if is_preme(torrent['added_on'], self.minimum_age, self.t.time()):
+            if is_preme(torrent['seeding_time'], self.minimum_age):
                 self.preme_tor_counter += 1
-                self.tl.debug(f'Premature torrent: ["{torrent["name"][0:20]}..."] hash: {torrent["hash"]}')
+                self.tl.debug(f'Premature torrent: ["{torrent["name"][0:20]}..."] Seconds Seeded: [{torrent["seeding_time"]}] hash: {torrent["hash"]}')
                 continue
             elif is_protected_tracker(torrent['tracker'], self.tracker_whitelist.values()):
                 if is_tag_blank(torrent['tags']):
@@ -50,8 +50,8 @@ def build_tor_list(self):
                 self.tracker_list.append(torrent)
 
 
-def is_preme(added, minage, time):
-    if added + minage >= time:
+def is_preme(seeding_time, minage):
+    if seeding_time >= minage:
         return True
 
 def is_cat_ignored(cat, catlist):

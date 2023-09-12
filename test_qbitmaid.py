@@ -4,8 +4,9 @@ from qprocess import is_downloading,is_protected_under_ratio,is_old_tor,is_prote
 
 class TestQbitmaid(unittest.TestCase):
     def test_ispreme_sanity(self):
-        self.assertTrue(is_preme(1,1,1))
-        self.assertFalse(is_preme(1,1,3))
+        self.assertTrue(is_preme(1,1))
+        self.assertTrue(is_preme(2,1))
+        self.assertFalse(is_preme(1,2))
     
     def test_ispreme(self):
         pass
