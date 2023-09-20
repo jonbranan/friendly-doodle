@@ -73,6 +73,10 @@ class Qbt:
         self.enable_dragnet = self.config["dragnet"]["enable_dragnet"]
         self.dragnet_outfile = self.config["dragnet"]["dragnet_outfile"]
 
+        #telemetry
+        self.enable_telemetry = self.config["telemetry"]["enable_telemetry"]
+        self.telemetry_outfile = self.config["telemetry"]["telemetry_outfile"]
+
         #ignored_categories
         self.cat_whitelist = self.config["ignored_categories"]
 

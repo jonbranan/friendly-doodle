@@ -39,7 +39,7 @@ steps:
   image: git.jonb.io/jblu/qbit-maid:latest
   commands:
   - python test_qbitmaid.py
-  - python test_dragnet.py
+  - python test_write_csv.py
   when:
     branch:
       - main
@@ -50,7 +50,7 @@ steps:
   image: git.jonb.io/jblu/qbit-maid:dev
   commands:
   - python test_qbitmaid.py
-  - python test_dragnet.py
+  - python test_write_csv.py
   when:
     branch:
       - dev*
