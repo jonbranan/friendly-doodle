@@ -29,13 +29,11 @@ class TestWriteCSV(unittest.TestCase):
         ratio = 1.05
         tags = 'ipt'
         added = 1
-        age = 240000
-        time = 123456
         thash = 'asfasdf23412adfqwer'
         tname = 'thisismynamehahahah'
         trname = 'https://localhost.stackoverflow.tech/317332f1c125bc9c1b9b14fb8e054908/announce'
-        header = ['state','ratio','tags','added','age','time','thash','tname','trname']
-        row = [state,ratio,tags,added,age,time,thash,tname,trname]
+        header = ['state','ratio','tags','added','hash','name','tracker']
+        row = [state,ratio,tags,added,thash,tname,trname]
         write_csv(self.cv,outfile,header,row)
         self.assertTrue(os.path.exists(outfile))
 

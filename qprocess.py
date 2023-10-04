@@ -4,8 +4,8 @@ def tor_processor(self):
     """
     for canidate in self.tracker_list:
         if self.enable_telemetry:
-            header = ['state','ratio','tags','added','age','time','thash','tname','trname']
-            row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
+            header = ['state','ratio','tags','added','hash','name','tracker']
+            row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
             write_csv(self.cv,self.telemetry_outfile,header,row)
         if self.use_log:
             self.tl.debug(f'---Reviewing canidate: ["{canidate["name"][0:20]}..."] {canidate["infohash_v1"]}---')
@@ -34,8 +34,8 @@ def tor_processor(self):
                 self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion.')
         else:
             if self.enable_dragnet:
-                header = ['state','ratio','tags','added','age','time','thash','tname','trname']
-                row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
+                header = ['state','ratio','tags','added','thash','tname','trname']
+                row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
                 write_csv(self.cv,self.dragnet_outfile,header,row)
             self.tl.info(f'["{canidate["name"][0:20]}..."] is orphaned.')
             self.up_tor_counter += 1
