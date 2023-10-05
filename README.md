@@ -78,6 +78,10 @@ aurls = 'mailto://user:pass@gmail.com'
 enable_dragnet = false
 dragnet_outfile = "./orphaned.csv"
 
+[telemetry]
+enable_telemetry = false
+telemetry_outfile = "./telemetry.csv"
+
 [ignored_categories]
 tech = "tech"
 books = "books"
