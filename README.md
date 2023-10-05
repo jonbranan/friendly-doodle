@@ -2,7 +2,7 @@
 # qbit-maid
 > Warning: This application removes torrents that are over the minimum age and that are not part of the ignored categories, domains or tags. Please use the delete_torrents feature set to false when first testing its functionality.
 
-![](https://drone.jbranan.com/api/badges/jblu/phc/status.svg)
+[![Build Status](https://drone.jonb.io/api/badges/jblu/qbit-maid/status.svg?ref=refs/heads/main)](https://drone.jonb.io/jblu/qbit-maid)
 
 The objective is to remove torrents based on the following criteria:
 - tracker domain name
@@ -13,15 +13,15 @@ The objective is to remove torrents based on the following criteria:
 ## Install
 ### Docker(Recommended)
 
-[package ](https://git.jbranan.com/jblu/-/packages/container/qbit-maid/latest)
+[package](https://git.jonb.io/jblu/-/packages/container/qbit-maid/latest)
 
-    docker pull git.jbranan.com/jblu/qbit-maid:latest
+    docker pull git.jonb.io/jblu/qbit-maid:latest
 
 #### Docker Run Command:
 
 > Please note it is best practice to escape spaces in variables. That is why there is backslashes in the cron schedule.
 
-    docker run --name qbit-maid -v /opt/qbit-maid:/config/ -e CRON=0\ 1\ *\ *\ * -e toml_path=/config/config.toml git.jbranan.com/jblu/qbit-maid
+    docker run --name qbit-maid -v /opt/qbit-maid:/config/ -e CRON=0\ 1\ *\ *\ * -e toml_path=/config/config.toml git.jonb.io/jblu/qbit-maid
 
 #### Docker Compose
 
@@ -29,7 +29,7 @@ The objective is to remove torrents based on the following criteria:
 version: '3.3'
 services:
     qbit-maid:
-        image: git.jbranan.com/jblu/qbit-maid
+        image: git.jonb.io/jblu/qbit-maid
         container_name: qbit-maid
         volumes:
             - /opt/qbit-maid:/config
@@ -38,7 +38,7 @@ services:
             - toml_path=/config/config.toml
 ```
 ### Via Git
-    git clone https://git.jbranan.com/jblu/qbit-maid.git
+    git clone https://git.jonb.io/jblu/qbit-maid.git
 
 Qbit-maid will look for an environment variable *toml_path* for its configuration.If it doesn't find it, it will look for a config.toml file in it's own directory.
 ##### config.toml
