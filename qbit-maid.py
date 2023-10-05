@@ -55,8 +55,8 @@ class Qbt:
 
         #torrent
         self.delete_torrents = self.config["torrent"]["delete_torrents"]
-        self.minimum_age = self.config["torrent"]["minimum_age"]
-        self.age = self.config["torrent"]["age"]
+        self.min_age = self.config["torrent"]["min_age"]
+        self.max_age = self.config["torrent"]["max_age"]
 
         #pushover
         self.use_pushover = self.config["pushover"]["use_pushover"]
@@ -72,6 +72,10 @@ class Qbt:
         #dragnet
         self.enable_dragnet = self.config["dragnet"]["enable_dragnet"]
         self.dragnet_outfile = self.config["dragnet"]["dragnet_outfile"]
+
+        #telemetry
+        self.enable_telemetry = self.config["telemetry"]["enable_telemetry"]
+        self.telemetry_outfile = self.config["telemetry"]["telemetry_outfile"]
 
         #ignored_categories
         self.cat_whitelist = self.config["ignored_categories"]
@@ -112,6 +116,7 @@ class Qbt:
         if self.use_log:
             list_qbit_api_info(self)
             list_first_tor(self)
+            debug_torrent_list(self)
         build_tor_list(self)
         process_counts(self)
         if self.use_log:

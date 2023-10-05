@@ -4,8 +4,9 @@ from qprocess import is_downloading,is_protected_under_ratio,is_old_tor,is_prote
 
 class TestQbitmaid(unittest.TestCase):
     def test_ispreme_sanity(self):
-        self.assertTrue(is_preme(1,1,1))
-        self.assertFalse(is_preme(1,1,3))
+        self.assertTrue(is_preme(1,1))
+        self.assertTrue(is_preme(1,2))
+        self.assertFalse(is_preme(2,1))
     
     def test_ispreme(self):
         pass
@@ -68,12 +69,12 @@ class TestQbitmaid(unittest.TestCase):
         pass
 
     def test_isoldtor_sanity(self):
-        self.assertTrue(is_old_tor(1,2,4))
+        self.assertFalse(is_old_tor(1,2))
 
     def test_isoldtor(self):
-        self.assertFalse(is_old_tor(1661150664,2419200,1662049004.2101078))
-        self.assertFalse(is_old_tor(1661150664,2419200,1662049004))
-        self.assertFalse(is_old_tor(1661150664.000000,2419200.0000000,1662049004.2101078))
+        self.assertTrue(is_old_tor(1,1))
+        self.assertTrue(is_old_tor(2,1))
+        self.assertFalse(is_old_tor(1,2))
 
     def test_isprotectedoverratio_sanity(self):
         self.assertTrue(is_protected_over_ratio(2,1,'a','a,b,c'))

@@ -3,6 +3,10 @@ def tor_processor(self):
     If torrent meets criteria for deletion, its infohash_v1 will be appended to self.torrent_hash_delete_list
     """
     for canidate in self.tracker_list:
+        if self.enable_telemetry:
+            header = ['state','ratio','tags','added','hash','name','tracker']
+            row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
+            write_csv(self.cv,self.telemetry_outfile,header,row)
         if self.use_log:
             self.tl.debug(f'---Reviewing canidate: ["{canidate["name"][0:20]}..."] {canidate["infohash_v1"]}---')
         if is_downloading(canidate['state']):
@@ -12,9 +16,9 @@ def tor_processor(self):
         elif is_protected_under_ratio(canidate['ratio'], 1.05, self.tracker_protected_tag, canidate["tags"]):
             if self.use_log:
                 self.tl.debug(f'["{canidate["name"][0:20]}..."] is below a 1.05 ratio({canidate["ratio"]})')
-            if is_old_tor(canidate['added_on'], self.age, self.t.time()):
+            if is_old_tor(canidate['time_active'], self.max_age):
                 if self.use_log:
-                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {self.t.time() - self.age - canidate["added_on"]}')
+                    self.tl.debug(f'["{canidate["name"][0:20]}..."] Seconds old: {canidate["time_active"]} Delta: {canidate["time_active"] - self.max_age}')
                 self.torrent_hash_delete_list.append(canidate['infohash_v1'])
                 if self.use_log:
                     self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion from the protected list.') 
@@ -30,7 +34,9 @@ def tor_processor(self):
                 self.tl.info(f'Submitted ["{canidate["name"][0:20]}..."] for deletion.')
         else:
             if self.enable_dragnet:
-                dragnet(self.cv,self.dragnet_outfile,canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],self.age,self.t.time(),canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker'])
+                header = ['state','ratio','tags','added','thash','tname','trname']
+                row = [canidate['state'],canidate['ratio'],canidate["tags"],canidate['added_on'],canidate['infohash_v1'],canidate["name"][0:20],canidate['tracker']] 
+                write_csv(self.cv,self.dragnet_outfile,header,row)
             self.tl.info(f'["{canidate["name"][0:20]}..."] is orphaned.')
             self.up_tor_counter += 1
             continue
@@ -56,8 +62,8 @@ def is_protected_under_ratio(torratio, setratio, settag, tortag):
     if torratio < float(setratio) and settag in tortag:
         return True
 
-def is_old_tor(toradd, setage, currenttime):
-    if toradd + setage <= currenttime:
+def is_old_tor(realage, maxage):
+    if realage >= maxage:
         return True
 
 def is_protected_over_ratio(torratio, setratio, settag, tortag):
@@ -68,9 +74,7 @@ def is_not_protected_tor(setnonprotectedtag, tortags):
     if setnonprotectedtag in tortags:
         return True
 
-def dragnet(csv_obj,outfile,state,ratio,tags,added,age,time,thash,tname,trname):
-    header = ['state','ratio','tags','added','age','time','thash','tname','trname']
-    row = [state,ratio,tags,added,age,time,thash,tname,trname]
+def write_csv(csv_obj,outfile,header,row):
     with open(outfile, 'a+', encoding='UTF8', newline='') as f:
         writer = csv_obj.writer(f)
         if f.tell() == 0:

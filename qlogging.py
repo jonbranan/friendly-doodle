@@ -91,3 +91,6 @@ def send_ping(self, req_obj, healthcheck_url):
         req_obj.get(healthcheck_url, timeout=10)
     except req_obj.RequestException as e:
         self.tl.info(f"Ping failed: {e}")
+
+def debug_torrent_list(self):
+    self.tl.debug(self.torrent_list)
