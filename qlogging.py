@@ -88,7 +88,7 @@ def get_script_runtime(self):
 
 def send_ping(self, req_obj, healthcheck_url):
     try:
-        req_obj.get(healthcheck_url, timeout=10)
+        req_obj.get(healthcheck_url, timeout=5)
     except req_obj.RequestException as e:
         self.tl.info(f"Ping failed: {e}")
 

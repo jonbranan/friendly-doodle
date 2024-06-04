@@ -94,6 +94,11 @@ class Qbt:
         tor_log(self)
         tor_notify(self)
         self.t = time
+
+        #start healthcheck job
+        if self.use_healthcheck:
+            send_ping(self, r, self.healthcheck_url.rstrip("/") + "/start" )
+            
         # Pulling domain names to treat carefully
         self.tracker_list = []
         self.up_tor_counter = 0

@@ -1,6 +1,8 @@
 import unittest
+import requests as r
 from qlist import is_preme,is_cat_ignored,is_tracker_blank,is_protected_tracker,is_not_protected_tracker,is_tag_blank,is_ignored_tag
 from qprocess import is_downloading,is_protected_under_ratio,is_old_tor,is_protected_over_ratio,is_not_protected_tor
+from qlogging import send_ping
 
 class TestQbitmaid(unittest.TestCase):
     def test_ispreme_sanity(self):
@@ -93,6 +95,17 @@ class TestQbitmaid(unittest.TestCase):
     
     def test_isignoredtag(self):
         self.assertTrue(is_ignored_tag(['save'], 'save,public,ipt'))
+
+    def test_sendpingstart_sanity(self):
+        send_ping(self, r, "https://thunder.jonb.io/ping/921625e5-5b76-4f45-a0c3-56145e16f3bb" + "/start")
+        url = "https://thunder.jonb.io/ping/921625e5-5b76-4f45-a0c3-56145e16f3bb"
+        send_ping(self, r, url)
+
+    def test_sendping_start(self):
+        url = "https://thunder.jonb.io/ping/921625e5-5b76-4f45-a0c3-56145e16f3bb/"
+        send_ping(self, r, url.strip("/") + "/start")
+        send_ping(self, r, "https://thunder.jonb.io/ping/921625e5-5b76-4f45-a0c3-56145e16f3bb")
+        
 
     # def test__sanity(self):
     #     pass

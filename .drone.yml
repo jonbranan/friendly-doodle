@@ -17,7 +17,6 @@ steps:
       - main
     event:
       - push
-      - pull_request
 - name: docker-test
   image: plugins/docker
   settings:
@@ -34,7 +33,6 @@ steps:
       - dev*
     event:
       - push
-      - pull_request
 - name: test-main
   image: git.jonb.io/jblu/qbit-maid:latest
   commands:
@@ -45,7 +43,6 @@ steps:
       - main
     event:
       - push
-      - pull_request
 - name: test-dev
   image: git.jonb.io/jblu/qbit-maid:dev
   commands:
@@ -56,4 +53,3 @@ steps:
       - dev*
     event:
       - push
-      - pull_request
